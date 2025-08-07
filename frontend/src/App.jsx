@@ -1,10 +1,20 @@
 import { useState } from 'react'
-import './App.scss'
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import IndexPage from './pages/index/IndexPage'
+import Navbar from './components/NavBar/NavBar'
+
 
 function App() {
 
   return (
     <>
+    <BrowserRouter>
+    <Navbar/>
+      <Routes>
+        <Route path = "/" element={<IndexPage/>}/>
+      </Routes>
+    </BrowserRouter>
+      
       
     </>
   )
