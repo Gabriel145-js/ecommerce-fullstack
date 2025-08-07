@@ -1,6 +1,6 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
-import styles from './NavBar.module.scss'
+import styles from './Navbar.module.scss'
 import lupaIcon from '../../assets/icons/lupaIcon.svg'
 
 const Navbar = () => {
