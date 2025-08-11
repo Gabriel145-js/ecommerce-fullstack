@@ -1,9 +1,10 @@
 import React from 'react'
-import {NavLink} from 'react-router-dom'
+import {Link, NavLink} from 'react-router-dom'
 import styles from './Navbar.module.scss'
 import lupaIcon from '../../assets/icons/lupaIcon.svg'
+import adminIcon from '../../assets/icons/adminIcon.svg'
 
-const Navbar = () => {
+const NavBar = () => {
   return (
 <nav className={styles.navbarContainer}>
   <div className={styles.navbarContent}>
@@ -18,11 +19,17 @@ const Navbar = () => {
 
     <div className={styles.navbarIcons}>
 
-      <img src={lupaIcon} alt="Search"  />
+      <NavLink >
+        <img src={lupaIcon} alt="Icone Busca"  />
+      </NavLink>
+
+      <NavLink to='/DashboardAdmin'>
+        <img  src={adminIcon} alt="Icone Admin" />
+      </NavLink>
     </div>
   </div>
 </nav>
   )
 }
 
-export default Navbar
+export default NavBar
