@@ -1,5 +1,5 @@
 @use '../../styles/variables.scss' as vars;
-@use '../../styles/animation.scss' ;
+@use '../../styles/animation.scss';
 
 .navbarContainer {
     width: 100%;
@@ -60,21 +60,27 @@
     align-items: center;
     gap: 20px;
 
-    img {
-        width: 20px;
-        height: 20px;
+    a {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
-        z-index: 2;
-    }
 
-    &:hover::before {
-        content: '';
-        width: 40px;
-        height: 35px;
-        background-color: #eade6f;
-        position: absolute;
-        border-radius: 10px;
+        img {
+            width: 20px;
+            height: 20px;
+        }
 
+        &:hover::before {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 35px;
+            background-color: rgb(242, 229, 46);
+            z-index: -1;
+            border-radius: 10px; 
+        }
     }
 }
 
