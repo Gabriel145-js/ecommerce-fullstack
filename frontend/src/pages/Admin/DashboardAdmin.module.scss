@@ -1,0 +1,151 @@
+@use '../../styles/variables.scss' as vars;
+@use '../../styles/animation.scss';
+
+.containerAdminDashboard {
+    width: 100%;
+    height: 100vh;
+    padding-bottom: 30px;
+    display: flex;
+}
+
+.containerMenuDashboard {
+    height: 100vh;
+    background-color: #ef4f67d5;
+    margin: 15px 15px 0 10px;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: width 0.3s ease;
+}
+
+
+.conteudoPrincipal {
+    flex: 1;
+    padding: 20px;
+    background-color: #f8f9fa;
+    margin: 15px 15px 0 0;
+    border-radius: 20px;
+    overflow-y: auto;
+}
+
+.containerLinks {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    top: 50px;
+    gap: 10px;
+    padding: 0 10px;
+
+    a{
+        color: vars.$colorDescricaoPreto;
+        font-family: vars.$fontFamilyInter;
+    }
+}
+
+.containerLinks {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    top: 50px;
+    gap: 10px;
+
+}
+
+.linkMenu {
+    color: vars.$colorPreto;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin-left: -10px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    gap: 10px;
+    padding: 2px 10px;
+
+    &:hover {
+        background-color: rgba(216, 223, 8, 0.718);
+        transform: translateX(5px);
+    }
+
+    &.active {
+        background-color: rgba(255, 255, 255, 0.315);
+        font-weight: 600;
+        border-left: 4px solid #fff;
+    }
+
+    img {
+        width: 40px;
+        flex-shrink: 0;
+
+    }
+}
+
+/* Ícones do menu */
+.menuHamburguer {
+    position: relative;
+    width: 35px;
+    height: 35px;
+    margin-left: 12px;
+    margin-top: 10px;
+
+
+    img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 35px;
+        height: 35px;
+        cursor: pointer;
+        transition: opacity 0.25s ease, transform 0.35s ease;
+        transform-origin: center center;
+        will-change: transform, opacity;
+        margin-top: 10px;
+    }
+
+    .menuHamburguerIcon {
+        opacity: 1;
+        transform: rotate(0deg);
+        pointer-events: auto;
+    }
+
+    .fecharIcon {
+        opacity: 0;
+        transform: rotate(-180deg);
+        pointer-events: none;
+    }
+}
+
+
+.containerMenuDashboard.aberto {
+    width: 20%;
+
+    .menuHamburguerIcon {
+        opacity: 0;
+        transform: rotate(180deg);
+        pointer-events: none;
+    }
+
+    .fecharIcon {
+        opacity: 1;
+        transform: rotate(0deg);
+        pointer-events: auto;
+    }
+}
+
+/* Quando fechado manualmente */
+.containerMenuDashboard.fechado {
+    width: 60px;
+
+    .menuHamburguerIcon {
+        opacity: 1;
+        transform: rotate(0deg);
+        pointer-events: auto;
+    }
+
+    .fecharIcon {
+        opacity: 0;
+        transform: rotate(-180deg);
+        pointer-events: none;
+    }
+}
