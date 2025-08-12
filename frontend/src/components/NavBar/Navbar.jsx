@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link, NavLink} from 'react-router-dom'
-import styles from './Navbar.module.scss'
+import styles from './NavBar.module.scss'
 import lupaIcon from '../../assets/icons/lupaIcon.svg'
 import adminIcon from '../../assets/icons/adminIcon.svg'
 
