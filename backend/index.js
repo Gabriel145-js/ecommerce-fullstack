@@ -9,10 +9,11 @@ app.use(express.json())
 
 // Importar rotas de categorias
 const categoriasRoutes = require('./routes/categorias')
-
+const produtosRoutes = require('./routes/produtos')
 
 // Usar as rotas de categorias
 app.use('/api/categorias', categoriasRoutes)
+app.use('/api/produtos', produtosRoutes)
 
 // Rota de teste
 
@@ -20,6 +21,7 @@ app.listen(5000, () => {
     console.log('Servidor rodando na porta 5000')
     console.log('Acesse: http://localhost:5000')
     console.log('Categorias: http://localhost:5000/api/categorias')
+    console.log('Categorias: http://localhost:5000/api/produtos')
 
     console.log('database', process.env.DATABASE_URL)
 })
