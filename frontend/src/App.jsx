@@ -3,7 +3,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import IndexPage from './pages/index/IndexPage'
 import DashboardAdmin from './pages/Admin/DashboardAdmin'
 import AddProduto from './components/Admin/AddProduto/AddProduto'
-import NavBar from './components/navbar/NavBar.jsx' 
+import NavBar from './components/navbar/NavBar' 
 
 
 
