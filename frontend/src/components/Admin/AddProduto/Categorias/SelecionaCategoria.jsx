@@ -61,7 +61,7 @@ const SelecionaCategoria = () => {
 
 
             <label>
-                <span>criar categoria</span>
+                <p className={styles.titCategoria}>Criar categoria <span className={styles.modalCategoria}>Nova Categoria</span></p>
                 <input type="text" placeholder='criar categoria' value={novaCategoria} onChange={e => setNovaCategoria(e.target.value)} />
                 <button type='button' onClick={handleCriarCategoria}> Criar categoria</button>
             </label>
