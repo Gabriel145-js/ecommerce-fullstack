@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from './AddProduto.module.scss'
 import SelecionaCategoria from './Categorias/SelecionaCategoria'
+import ImagensProodutos from './ImagensProdutos/ImagensProodutos'
 
 const AddProduto = () => {
 
@@ -9,7 +10,10 @@ const AddProduto = () => {
   const [preco, setPreco] = useState('')
   const [descricao, setDescricao] = useState('')
 
+
   const urlProdutos = 'http://localhost:5000/api/produtos'
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -69,18 +73,10 @@ const AddProduto = () => {
             <input type="number" placeholder='Quantidade em estoque' value={estoque} onChange={e => setEstoque(e.target.value)} />
           </label>
 
-          <label className={styles.labelInput}>
-            <span>Imagem principal</span>
-            <input type="file" accept="image/*" />
-          </label>
 
-          <label className={styles.labelInput}>
-            <span>Imagens adicionais</span>
-            <input type="file" accept="image/*" multiple />
-          </label>
 
           <SelecionaCategoria />
-
+          <ImagensProodutos />
           <button type="submit">Criar produto</button>
         </form>
       </section>
