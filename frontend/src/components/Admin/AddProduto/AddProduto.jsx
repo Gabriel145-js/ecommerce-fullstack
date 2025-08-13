@@ -9,40 +9,97 @@ const AddProduto = () => {
   const [estoque, setEstoque] = useState('')
   const [preco, setPreco] = useState('')
   const [descricao, setDescricao] = useState('')
+  const [selecionaCategoria, setSelecionaCategoria] = useState('');
+  const [categorias, setCategorias] = useState([]);
+
+  const [tamanhoP, setTamanhoP] = useState(false);
+  const [tamanhoM, setTamanhoM] = useState(false);
+  const [tamanhoG, setTamanhoG] = useState(false);
+  const [imagemPrincipal, setImagemPrincipal] = useState(null);
+  const [imagensAdicionais, setImagensAdicionais] = useState([]);
 
 
   const urlProdutos = 'http://localhost:5000/api/produtos'
+  const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+  const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+  const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
 
 
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
 
-    const criarProduto = async () => {
-      try {
-        const res = await fetch(urlProdutos, {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      // 1. Upload da imagem principal
+      let imagemPrincipalUrl = '';
+      if (imagemPrincipal) {
+        const formData = new FormData();
+        formData.append('file', imagemPrincipal);
+        formData.append('upload_preset', UPLOAD_PRESET);
+
+        const res = await fetch(CLOUDINARY_URL, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ nome: nomeProduto, descricao: descricao, preco: preco, estoque: estoque })
-        })
+          body: formData,
+        });
 
-        const data = await res.json()
-        console.log('criado', data)
-        setNomeProduto('')
-        setDescricao('')
-        setPreco('')
-        setEstoque('')
-
-
-      } catch (error) {
-        console.error(error)
-
+        const data = await res.json();
+        imagemPrincipalUrl = data.secure_url;
       }
+
+      // 2. Upload das imagens adicionais
+      const imagensAdicionaisUrls = [];
+      for (const file of imagensAdicionais) {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', UPLOAD_PRESET);
+
+        const res = await fetch(CLOUDINARY_URL, {
+          method: 'POST',
+          body: formData,
+        });
+
+        const data = await res.json();
+        imagensAdicionaisUrls.push(data.secure_url);
+      }
+
+      // 3. Enviar dados do produto + URLs das imagens para o backend
+      const produtos = {
+        nome: nomeProduto,
+        descricao,
+        preco: Number(preco),
+        estoque: Number(estoque),
+        tamanho_p: tamanhoP,
+        tamanho_m: tamanhoM,
+        tamanho_g: tamanhoG,
+        categorias_id: Number(selecionaCategoria),
+        imagem_principal: imagemPrincipalUrl,
+        imagens_adicionais: imagensAdicionaisUrls,
+      };
+
+      console.log('Enviando produto:', produtos);
+
+
+      const resProduto = await fetch('http://localhost:5000/api/produtos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(produtos),
+      });
+      const resultado = await resProduto.json();
+      console.log('Produto criado com sucesso:', resultado);
+
+      // 4. Resetar estados
+      setNomeProduto('');
+      setDescricao('');
+      setPreco('');
+      setEstoque('');
+      setImagemPrincipal(null);
+      setImagensAdicionais([]);
+
+    } catch (error) {
+      console.error('Erro ao criar produto:', error);
     }
-    criarProduto()
-  }
+  };
 
   return (
     <div className={styles.containerAddProduto}>
@@ -74,9 +131,53 @@ const AddProduto = () => {
           </label>
 
 
+          <SelecionaCategoria
+            categorias={categorias}
+            setCategorias={setCategorias}
+            selecionaCategoria={selecionaCategoria}
+            setSelecionaCategoria={setSelecionaCategoria}
+          />
 
-          <SelecionaCategoria />
-          <ImagensProodutos />
+
+          <div className={styles.labelInput}>
+            <span>Tamanhos disponíveis</span>
+            <div className={styles.checkboxGroup}>
+              <div className={styles.checkboxItem}>
+                <input
+                  type="checkbox"
+                  checked={tamanhoP}
+                  onChange={e => setTamanhoP(e.target.checked)}
+                />
+                <span>P</span>
+              </div>
+              <div className={styles.checkboxItem}>
+                <input
+                  type="checkbox"
+                  checked={tamanhoM}
+                  onChange={e => setTamanhoM(e.target.checked)}
+                />
+                <span>M</span>
+              </div>
+              <div className={styles.checkboxItem}>
+                <input
+                  type="checkbox"
+                  checked={tamanhoG}
+                  onChange={e => setTamanhoG(e.target.checked)}
+                />
+                <span>G</span>
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <ImagensProodutos
+            imagemPrincipal={imagemPrincipal}
+            setImagemPrincipal={setImagemPrincipal}
+            imagensAdicionais={imagensAdicionais}
+            setImagensAdicionais={setImagensAdicionais}
+          />
           <button type="submit">Criar produto</button>
         </form>
       </section>
