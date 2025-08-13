@@ -1,8 +1,20 @@
 const express = require('express');
 const db = require('../db/db');
-
 const router = express.Router();
 
+//Metodo GET dos produtos
+router.get('/', async (req, res) => {
+  try {
+    const response = await db`SELECT * FROM produtos`
+    res.json(response)
+
+  } catch (error) {
+    console.error(error.message)
+    res.status(500).json({ error: 'Houve um erro ao buscar produtos' })
+  }
+})
+
+//Metodo POST de produtos
 router.post('/', async (req, res) => {
   const {
     nome,
