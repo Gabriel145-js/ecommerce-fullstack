@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import styles from '../AddProduto.module.scss'
 
-const SelecionaCategoria = () => {
+const SelecionaCategoria = ({ categorias,setCategorias, selecionaCategoria, setSelecionaCategoria }) => {
     const [novaCategoria, setNovaCategoria] = useState('')
-    const [categorias, setCategorias] = useState([])
-    const [selecionaCategoria, setSelecionaCategoria] = useState('')
+  
     const [modalAberto, setModalAberto] = useState(false)
 
     const urlCategorias = 'http://localhost:5000/api/categorias'
@@ -97,7 +96,7 @@ const SelecionaCategoria = () => {
                     </select>
                 </label>
 
-             
+
             </div>
 
             {/* Modal para criar categoria */}
