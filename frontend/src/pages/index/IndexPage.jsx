@@ -3,8 +3,9 @@ import styles from './IndexPage.module.scss'
 
 const IndexPage = () => {
   const [produtos, setProdutos] = useState([])
-
-  const urlProdutos = 'http://localhost:5000/api/produtos'
+  
+  const API_URL = import.meta.env.VITE_API_URL;
+  const urlProdutos = `${API_URL}/api/produtos`;
 
   useEffect(() => {
     const exibirProdutos = async () => {
