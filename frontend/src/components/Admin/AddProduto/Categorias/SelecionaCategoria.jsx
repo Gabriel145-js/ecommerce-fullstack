@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import styles from '../AddProduto.module.scss'
 
-const SelecionaCategoria = ({ categorias,setCategorias, selecionaCategoria, setSelecionaCategoria }) => {
+const SelecionaCategoria = ({ categorias, setCategorias, selecionaCategoria, setSelecionaCategoria }) => {
     const [novaCategoria, setNovaCategoria] = useState('')
-  
+
     const [modalAberto, setModalAberto] = useState(false)
 
-    const urlCategorias = 'http://localhost:5000/api/categorias'
+    const API_URL = import.meta.env.VITE_API_URL;
+    const urlCategorias = `${API_URL}/api/categorias`;
 
     const handleCriarCategoria = async (e) => {
         e.preventDefault();
@@ -54,8 +55,6 @@ const SelecionaCategoria = ({ categorias,setCategorias, selecionaCategoria, setS
                     headers: {
                         'Content-Type': 'application/json',
                     },
-
-
                 })
 
                 const data = await res.json()

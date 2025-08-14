@@ -19,7 +19,10 @@ const AddProduto = () => {
   const [imagensAdicionais, setImagensAdicionais] = useState([]);
 
 
-  const urlProdutos = 'http://localhost:5000/api/produtos'
+  const API_URL = import.meta.env.VITE_API_URL;
+  const urlProdutos = `${API_URL}/api/produtos`;
+
+
   const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
   const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
   const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
@@ -80,7 +83,7 @@ const AddProduto = () => {
       console.log('Enviando produto:', produtos);
 
 
-      const resProduto = await fetch('http://localhost:5000/api/produtos', {
+      const resProduto = await fetch(urlProdutos, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(produtos),
