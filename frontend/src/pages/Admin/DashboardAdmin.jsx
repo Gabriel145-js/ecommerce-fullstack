@@ -34,7 +34,7 @@ const DashboardAdmin = () => {
             <img src={addProdutoIcon} alt="" />Adicionar Produto
           </NavLink>
           
-          <NavLink to='gerenciar-produtos' className={styles.linkMenu}>
+          <NavLink to='GerenciarCategorias' className={styles.linkMenu}>
            <img src={addProdutoIcon} alt="" /> Gerenciar Categorias
           </NavLink>
         </div>
