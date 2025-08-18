@@ -1,0 +1,125 @@
+@use '../../../../../styles/variables.scss' as vars;
+@use '../../../../../styles/animation.scss';
+@use '../../../../../styles/mixin.scss' as mix;
+
+.containerPageCategorias {
+    padding: 40px;
+
+    .titESubtitulo {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 30px;
+
+        h1 {
+            font-family: vars.$fontFamilyInter;
+            color: vars.$colorPreto;
+            font-size: vars.$fontSizeGrande;
+        }
+
+        p {
+            color: #000000a4;
+            font-size: vars.$fontSizeMedia;
+            font-family: vars.$fontFamilyInter;
+        }
+    }
+}
+
+
+.containerCategorias {
+    background-color: #fff;
+    min-height: 50vh;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    padding: 40px;
+
+}
+
+.categoriasFundo {
+    width: 20%;
+    min-width: 200px;
+    max-width: 300px;
+    min-height: 10vh;
+    max-height: 10vh;
+    background-color: #FDFDFC;
+    border: 1px solid #e5e7eb;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    gap: 40px;
+
+
+}
+
+.listaCategoriaWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.listaCategorias {
+    list-style: none;
+    font-family: vars.$fontFamilyInter;
+    font-size: vars.$fontSizeMedia;
+    width: 100%;
+    color: vars.$colorRosa;
+
+    .nomeCategoria{
+        text-transform: capitalize;
+        font-family: vars.$fontFamilyInter;
+        font-size: vars.$fontSizeMedia;
+        font-weight: 700;
+    }
+
+    .iconesEdit {
+        display: flex;
+        justify-content: end;
+        margin-top: 30px;
+
+    }
+
+    .deleteCategoria {
+        width: 25px;
+        cursor: pointer;
+    }
+
+    .editCategoria {
+        cursor: pointer;
+        width: 25px;
+    }
+
+}
+
+.modalLabel {
+    @include mix.modalLabel
+}
+
+.modalOverlay {
+    @include mix.modal-overlay;
+}
+
+.modalContent {
+    @include mix.modal-content(500px);
+}
+
+.modalHeader {
+    @include mix.modal-header;
+}
+
+.modalActions {
+    @include mix.modal-actions
+}
+
+.closeButton {
+    @include mix.close-buton
+}
+
+.cancelButton {
+    @include mix.modal-button(#f5f5f5, #666, #f00000, #fff);
+}
+
+.createButton {
+    @include mix.modal-button(vars.$colorRosa, #fff, #237e07, #fff);
+}
