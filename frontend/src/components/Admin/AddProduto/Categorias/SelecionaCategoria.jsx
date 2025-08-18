@@ -1,21 +1,36 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef, useMemo } from 'react'
+import { createPortal } from 'react-dom'
 import styles from '../AddProduto.module.scss'
+import fecharIcon from '../../../../assets/icons/fecharIcon.svg'
 
 const SelecionaCategoria = ({ categorias, setCategorias, selecionaCategoria, setSelecionaCategoria }) => {
     const [novaCategoria, setNovaCategoria] = useState('')
-
+    const [descricaoCategoria, setDescricaoCategoria] = useState('')
     const [modalAberto, setModalAberto] = useState(false)
 
-    const API_URL = import.meta.env.VITE_API_URL;
-    const urlCategorias = `${API_URL}/api/categorias`;
+    // Refs para os inputs, pois dava erro no modal
+    const nomeInputRef = useRef(null)
+    const descricaoInputRef = useRef(null)
 
+    const API_URL = import.meta.env.VITE_API_URL;
+    const urlCategorias = useMemo(() => `${API_URL}/api/categorias`, [API_URL]);
+
+    // Função verifica se event existe antes de chamar preventDefault, evita erro do input modal
     const handleCriarCategoria = async (e) => {
-        e.preventDefault();
+        // Verifica se o evento existe antes de chamar preventDefault, evita erro do input modal
+        if (e && e.preventDefault) {
+            e.preventDefault();
+        }
 
         if (!novaCategoria.trim()) {
             alert('Por favor, digite o nome da categoria');
             return;
         }
+
+        console.log('Dados sendo enviados:', {
+            nome: novaCategoria,
+            descricaoCategoria: descricaoCategoria
+        }); // Debug temporario
 
         try {
             const res = await fetch(urlCategorias, {
@@ -23,17 +38,32 @@ const SelecionaCategoria = ({ categorias, setCategorias, selecionaCategoria, set
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ nome: novaCategoria }) // envia como objeto
+                body: JSON.stringify({
+                    nome: novaCategoria,
+                    descricaoCategoria: descricaoCategoria || null 
+                })
             });
 
-            const data = await res.json();
-            console.log('Categoria criada:', data);
-            setNovaCategoria(''); // limpa o input
-            setModalAberto(false); // fecha o modal
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
 
-            setCategorias([...categorias, data]); //atualizar a lista de categorias
+            const data = await res.json();
+            console.log('Resposta do servidor:', data); // Debug temporario
+            
+            // Verifica se a resposta contém os dados corretos
+            const novaCategoriaCriada = Array.isArray(data) ? data[0] : data;
+            
+            setNovaCategoria('');
+            setDescricaoCategoria('');
+            setModalAberto(false);
+            
+            // Adiciona a nova categoria à lista
+            setCategorias(prev => [...prev, novaCategoriaCriada]);
+
         } catch (error) {
             console.error('Erro ao criar categoria:', error);
+            alert('Erro ao criar categoria. Tente novamente.');
         }
     };
 
@@ -43,12 +73,28 @@ const SelecionaCategoria = ({ categorias, setCategorias, selecionaCategoria, set
 
     const fecharModal = () => {
         setModalAberto(false);
-        setNovaCategoria(''); // limpa o input ao fechar
+        setNovaCategoria('');
+        setDescricaoCategoria('');
+    };
+
+    // Função para fechar modal apenas quando clicado no overlay
+    const handleOverlayClick = (e) => {
+        if (e.target === e.currentTarget) {
+            fecharModal();
+        }
+    };
+
+    
+    //Função para enviar via ENTER
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleCriarCategoria();
+        }
     };
 
     useEffect(() => {
         const selectCategorias = async () => {
-
             try {
                 const res = await fetch(urlCategorias, {
                     method: 'GET',
@@ -56,18 +102,80 @@ const SelecionaCategoria = ({ categorias, setCategorias, selecionaCategoria, set
                         'Content-Type': 'application/json',
                     },
                 })
-
+                
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                
                 const data = await res.json()
+                console.log('Categorias carregadas:', data); // Debug temporario
                 setCategorias(data)
-
             } catch (error) {
-                console.error(error)
+                console.error('Erro ao carregar categorias:', error)
             }
         }
         selectCategorias()
+    }, [urlCategorias, setCategorias])
 
+    // Componente do Modal esta isolado para evitar re-renders, pois da erro no input do modal
+    const ModalCategoria = useMemo(() => {
+        if (!modalAberto) return null;
 
-    }, [])
+        return (
+            <div className={styles.modalOverlay} onClick={handleOverlayClick}>
+                <div className={styles.modalContent}>
+                    <div className={styles.modalHeader}>
+                        <h3>Nova Categoria</h3>
+                        <button className={styles.closeButton} onClick={fecharModal}>
+                            <img src={fecharIcon} alt="Fechar" />
+                        </button>
+                    </div>
+
+                    <div className={styles.modalForm}>
+                        <div className={styles.modalLabel}>
+                            <span>Nome da Categoria *</span>
+                            <input
+                                ref={nomeInputRef}
+                                type="text"
+                                placeholder="Digite o nome da categoria"
+                                value={novaCategoria}
+                                onChange={e => setNovaCategoria(e.target.value)}
+                                onKeyDown={handleKeyDown}
+                                className={styles.modalInput}
+                                autoComplete='off'
+                                required
+                                autoFocus
+                            />
+                        </div>
+
+                        <div className={styles.modalLabel}>
+                            <span>Descrição da categoria</span>
+                            <input
+                                ref={descricaoInputRef}
+                                type="text"
+                                placeholder="Breve descrição "
+                                value={descricaoCategoria}
+                                onChange={e => setDescricaoCategoria(e.target.value)}
+                                onKeyDown={handleKeyDown} 
+                                className={styles.modalInput}
+                                autoComplete='off'
+                                required
+                            />
+                        </div>
+
+                        <div className={styles.modalActions}>
+                            <button type='button' onClick={fecharModal} className={styles.cancelButton}>
+                                Cancelar
+                            </button>
+                            <button type='button' onClick={() => handleCriarCategoria()} className={styles.createButton}>
+                                Criar Categoria
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }, [modalAberto, novaCategoria, descricaoCategoria]); 
 
     return (
         <div>
@@ -84,7 +192,7 @@ const SelecionaCategoria = ({ categorias, setCategorias, selecionaCategoria, set
                         {Array.isArray(categorias) ? (
                             categorias.map((tag, index) => (
                                 <option key={tag.id || `categoria-${index}`} value={tag.id}>
-                                    {tag.nome}
+                                    {tag.nome} {tag.descricaoCategoria ? `- ${tag.descricaoCategoria}` : ''}
                                 </option>
                             ))
                         ) : (
@@ -93,45 +201,14 @@ const SelecionaCategoria = ({ categorias, setCategorias, selecionaCategoria, set
                             </option>
                         )}
                     </select>
+                    <button type='button' className={styles.btnNovaCategoria} onClick={abrirModal}>
+                        Nova categoria
+                    </button>
                 </label>
-
-
             </div>
 
-            {/* Modal para criar categoria */}
-            {modalAberto && (
-                <div className={styles.modalOverlay} onClick={fecharModal}>
-                    <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-                        <div className={styles.modalHeader}>
-                            <h3>Nova Categoria</h3>
-                            <button className={styles.closeButton} onClick={fecharModal}>×</button>
-                        </div>
-
-                        <form onSubmit={handleCriarCategoria} className={styles.modalForm}>
-                            <label className={styles.modalLabel}>
-                                <span>Nome da Categoria</span>
-                                <input
-                                    type="text"
-                                    placeholder='Digite o nome da categoria'
-                                    value={novaCategoria}
-                                    onChange={e => setNovaCategoria(e.target.value)}
-                                    className={styles.modalInput}
-                                    autoFocus
-                                />
-                            </label>
-
-                            <div className={styles.modalActions}>
-                                <button type='button' onClick={fecharModal} className={styles.cancelButton}>
-                                    Cancelar
-                                </button>
-                                <button type='submit' className={styles.createButton}>
-                                    Criar Categoria
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            )}
+            {/* Modal renderizado via portal - fora da DOM  */}
+            {modalAberto && createPortal(ModalCategoria, document.body)}
         </div>
     )
 }
