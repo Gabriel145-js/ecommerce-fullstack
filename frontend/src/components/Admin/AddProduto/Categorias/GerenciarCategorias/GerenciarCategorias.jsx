@@ -1,0 +1,295 @@
+import React, { useEffect, useState, useCallback, useMemo } from 'react'
+import { createPortal } from 'react-dom'
+import styles from './GerenciarCategorias.module.scss'
+import lixoIcon from '../../../../../assets/icons/lixoIcon.svg'
+import editIcon from '../../../../../assets/icons/editIcon.svg'
+import fecharIcon from '../../../../../assets/icons/fecharIcon.svg'
+
+const GerenciarCategorias = () => {
+    const [categorias, setCategorias] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [editandoCategoria, setEditandoCategoria] = useState(null)
+    const [nomeEditado, setNomeEditado] = useState('')
+    const [descricaoCategoria, setDescricaoCategoria] = useState('')
+    const [modalAberto, setModalAberto] = useState(false)
+
+    const API_URL = import.meta.env.VITE_API_URL;
+    const urlCategorias = useMemo(() => `${API_URL}/api/categorias`, [API_URL]);
+
+    useEffect(() => {
+        const exibirCategorias = async () => {
+            try {
+                setLoading(true)
+                const res = await fetch(urlCategorias, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+
+                if (res.ok) {
+                    const data = await res.json()
+                    setCategorias(data)
+                } else {
+                    console.error('Erro ao buscar categorias:', res.status)
+                }
+
+            } catch (error) {
+                console.error('Houve um erro ao buscar categorias:', error)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        exibirCategorias()
+    }, [urlCategorias])
+
+    const handleDeleteCategoria = useCallback(async (id) => {
+        if (!window.confirm('Tem certeza que deseja excluir esta categoria?')) {
+            return
+        }
+
+        try {
+            console.log('Deletando categoria ID:', id) // Debug temporario
+
+            const res = await fetch(`${urlCategorias}/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            console.log('Response status DELETE:', res.status) // Debug temporario
+
+            if (res.ok) {
+                const responseData = await res.json()
+                console.log('Delete response:', responseData) // Debug temporario
+                setCategorias(prev => prev.filter(c => c.id !== id))
+                alert('Categoria excluída com sucesso!')
+            } else {
+                const errorData = await res.json().catch(() => ({ error: 'Erro desconhecido' }))
+                console.error('Erro ao excluir categoria:', errorData)
+                alert('Erro ao excluir categoria: ' + (errorData.error || 'Erro desconhecido'))
+            }
+        } catch (error) {
+            console.error('Erro ao excluir:', error.message)
+            alert('Erro de conexão ao excluir categoria')
+        }
+    }, [urlCategorias])
+
+    const abrirModalEdicao = useCallback((categoria) => {
+        console.log('Abrindo modal para categoria:', categoria) // Debug temporario
+        setEditandoCategoria(categoria)
+        setNomeEditado(categoria.nome)
+        setDescricaoCategoria(categoria.descricaoCategoria || '') 
+        setModalAberto(true)
+    }, [])
+
+    const fecharModal = useCallback(() => {
+        setModalAberto(false)
+        setEditandoCategoria(null)
+        setNomeEditado('')
+        setDescricaoCategoria('')
+    }, [])
+
+    const handleOverlayClick = useCallback((e) => {
+        if (e.target === e.currentTarget) {
+            fecharModal()
+        }
+    }, [fecharModal])
+
+    const handleUpdateCategoria = useCallback(async () => {
+        if (!nomeEditado.trim()) {
+            alert('Por favor, digite o nome da categoria')
+            return
+        }
+
+        try {
+            console.log('Atualizando categoria:', {
+                id: editandoCategoria.id,
+                nome: nomeEditado.trim(),
+                descricaoCategoria: descricaoCategoria.trim(),
+                url: `${urlCategorias}/${editandoCategoria.id}`
+            }) // Debug temporario
+
+            const requestBody = {
+                nome: nomeEditado.trim(),
+                descricaoCategoria: descricaoCategoria.trim()
+            }
+            console.log('Request body:', requestBody) // Debug temporario
+
+            const res = await fetch(`${urlCategorias}/${editandoCategoria.id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestBody)
+            })
+
+            console.log('Response status PATCH:', res.status) // Debug temporario
+            console.log('Response headers:', [...res.headers.entries()]) // Debug temporario
+
+            // Tenta ler a resposta como texto primeiro para ver o que está sendo retornado
+            const responseText = await res.text()
+            console.log('Response text:', responseText) // Debug temporario
+
+            if (res.ok) {
+                let responseData
+                try {
+                    responseData = JSON.parse(responseText)
+                    console.log('Parsed response data:', responseData) // Debug temporario
+                } catch (parseError) {
+                    console.warn('Response não é JSON válido:', parseError)
+                    responseData = { message: 'Categoria atualizada' }
+                }
+
+                // Atualiza a categoria na lista local
+                setCategorias(prev => prev.map(c =>
+                    c.id === editandoCategoria.id
+                        ? { ...c, nome: nomeEditado.trim(), descricaoCategoria: descricaoCategoria.trim() }
+                        : c
+                ))
+                fecharModal()
+                alert('Categoria atualizada com sucesso!')
+            } else {
+                let errorData
+                try {
+                    errorData = JSON.parse(responseText)
+                } catch (parseError) {
+                    errorData = { error: `Erro ${res.status}: ${responseText || 'Erro desconhecido'}` }
+                }
+                console.error('Erro ao atualizar categoria:', errorData)
+                alert('Erro ao atualizar categoria: ' + (errorData.error || 'Erro desconhecido'))
+            }
+        } catch (error) {
+            console.error('Erro ao atualizar:', error.message)
+            alert('Erro de conexão ao atualizar categoria')
+        }
+    }, [editandoCategoria, nomeEditado, descricaoCategoria, urlCategorias, fecharModal])
+
+    // Componente do Modal de Edição isolado
+    const ModalEdicao = useMemo(() => {
+        if (!modalAberto || !editandoCategoria) return null;
+
+        return (
+            <div className={styles.modalOverlay} onClick={handleOverlayClick}>
+                <div className={styles.modalContent}>
+                    <div className={styles.modalHeader}>
+                        <h3>Editar Categoria</h3>
+                        <button className={styles.closeButton} onClick={fecharModal}><img src={fecharIcon} alt="" /></button>
+                    </div>
+
+                    <div className={styles.modalForm}>
+                        <div className={styles.modalLabel}>
+                            <span>Nome da Categoria</span>
+                            <input
+                                type="text"
+                                placeholder='Digite o novo nome da categoria'
+                                value={nomeEditado}
+                                onChange={e => setNomeEditado(e.target.value)}
+                                onKeyDown={e => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        handleUpdateCategoria();
+                                    }
+                                }}
+                                className={styles.modalInput}
+                                autoFocus
+                            />
+                        </div>
+
+                        <div className={styles.modalLabel}>
+                            <span>Descrição da categoria</span>
+                            <input
+                                type="text"
+                                placeholder='Breve descrição da categoria'
+                                value={descricaoCategoria}
+                                onChange={e => setDescricaoCategoria(e.target.value)}
+                                onKeyDown={e => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        handleUpdateCategoria();
+                                    }
+                                }}
+                                className={styles.modalInput}
+                            />
+                        </div>
+
+                        <div className={styles.modalActions}>
+                            <button type='button' onClick={fecharModal} className={styles.cancelButton}>
+                                Cancelar
+                            </button>
+                            <button type='button' onClick={handleUpdateCategoria} className={styles.createButton}>
+                                Salvar Alterações
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }, [modalAberto, editandoCategoria, nomeEditado, descricaoCategoria, handleOverlayClick, fecharModal, handleUpdateCategoria])
+
+    if (loading) {
+        return (
+            <div className={styles.containerPageCategorias}>
+                <div className={styles.titESubtitulo}>
+                    <h1>Gerenciar Categorias</h1>
+                    <p>Edite, exclua e veja as suas categorias com seus produtos.</p>
+                </div>
+                <div className={styles.containerCategorias}>
+                    <p>Carregando categorias...</p>
+                </div>
+            </div>
+        )
+    }
+
+    return (
+        <div className={styles.containerPageCategorias}>
+            <div className={styles.titESubtitulo}>
+                <h1>Gerenciar Categorias</h1>
+                <p>Edite, exclua e veja as suas categorias com seus produtos.</p>
+            </div>
+
+            <div className={styles.containerCategorias}>
+                {Array.isArray(categorias) && categorias.length > 0 ? (
+                    <ul className={styles.listaCategoriaWrapper}>
+                        {categorias.map(categ => (
+                            <li key={categ.id} className={styles.categoriasFundo}>
+                                <div className={styles.listaCategorias}>
+                                    <span className={styles.nomeCategoria}>{categ.nome}</span>
+                                    <span className={styles.descricaoCategoria}>{categ.descricaoCategoria}</span>
+                                    <div className={styles.iconesEdit}>
+                                        <img
+                                            className={styles.editCategoria}
+                                            src={editIcon}
+                                            alt="Editar categoria"
+                                            onClick={() => abrirModalEdicao(categ)}
+                                            title="Editar categoria"
+                                        />
+                                        <img
+                                            className={styles.deleteCategoria}
+                                            src={lixoIcon}
+                                            alt="Excluir categoria"
+                                            onClick={() => handleDeleteCategoria(categ.id)}
+                                            title="Excluir categoria"
+                                        />
+                                    </div>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <div className={styles.categoriasVazias}>
+                        <p>Nenhuma categoria encontrada</p>
+                        <p>Crie sua primeira categoria para começar!</p>
+                    </div>
+                )}
+            </div>
+
+            {/* Modal renderizado via portal */}
+            {modalAberto && editandoCategoria && createPortal(ModalEdicao, document.body)}
+        </div>
+    )
+}
+
+export default GerenciarCategorias
