@@ -1,0 +1,118 @@
+@use './variables.scss' as vars;
+
+@mixin modalLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+
+  span {
+    font-family: vars.$fontFamilyInter;
+    color: vars.$colorPreto;
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  input {
+    width: 100%;
+    max-width: 95%;
+    padding: 10px;
+    border: 1px solid #0000006c;
+    border-radius: 10px;
+
+    &:focus {
+      outline: none;
+      border-color: vars.$colorRosa;
+      box-shadow: 0 0 0 3px rgba(vars.$colorRosa, 0.1);
+    }
+  }
+}
+
+@mixin modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+@mixin modal-content($max-width: 500px) {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: $max-width;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+@mixin modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #eee;
+
+  h3 {
+    margin: 0;
+    font-family: vars.$fontFamilyInter;
+    color: vars.$colorPreto;
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
+
+@mixin modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-right: 10px;
+
+}
+
+@mixin close-buton {
+  background-color: #bdbdbd;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  border: none;
+  transition: 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 50%;
+
+  }
+
+  &:hover {
+    transform: scale(1.1);
+    transition: 0.3s ease-in-out;
+  }
+
+}
+
+@mixin modal-button($bg, $color, $hover-bg, $hover-color) {
+  padding: 10px 20px;
+  background-color: $bg;
+  color: $color;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: vars.$fontFamilyInter;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+  margin-bottom: 20px;
+
+
+  &:hover {
+    background-color: $hover-bg;
+    color: $hover-color;
+  }
+}
