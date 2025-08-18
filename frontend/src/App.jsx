@@ -4,6 +4,7 @@ import IndexPage from './pages/index/IndexPage'
 import DashboardAdmin from './pages/Admin/DashboardAdmin'
 import AddProduto from './components/Admin/AddProduto/AddProduto'
 import Navigation from './components/Navigation/Navigation' 
+import GerenciarCategorias from './components/Admin/AddProduto/Categorias/GerenciarCategorias/GerenciarCategorias'
 
 
 
@@ -18,6 +19,7 @@ function App() {
 
         <Route path='/DashboardAdmin' element={<DashboardAdmin/>}>
             <Route path='AddProduto' element={<AddProduto/>}/>
+            <Route path='GerenciarCategorias' element={<GerenciarCategorias/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
