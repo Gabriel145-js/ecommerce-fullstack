@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const db = require('../db/db')
 
-// GET - Buscar todas as categorias
+// GET - Buscar todas as categorias (sem produtos)
 router.get('/', async (req, res) => {
   try {
     const categorias = await db`SELECT * FROM categorias ORDER BY id`
@@ -12,6 +12,29 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: 'Erro ao buscar categorias' })
   }
 })
+
+// GET - Buscar todas as categorias (com total de produtos)
+router.get('/com-produtos', async (req, res) => {
+  try {
+    const categorias = await db`
+      SELECT 
+        c.id,
+        c.nome,
+        c.descricaocategoria,
+        COUNT(p.id) AS total_produtos
+      FROM categorias c
+      LEFT JOIN produtos p ON p.categorias_id = c.id
+      GROUP BY c.id, c.nome, c.descricaocategoria
+      ORDER BY c.id
+    `
+    res.json(categorias)
+  } catch (error) {
+    console.error('Erro ao buscar categorias com produtos:', error)
+    res.status(500).json({ error: 'Erro ao buscar categorias com produtos' })
+  }
+})
+
+
 
 // POST - Cria uma nova categoria
 router.post('/', async (req, res) => {
