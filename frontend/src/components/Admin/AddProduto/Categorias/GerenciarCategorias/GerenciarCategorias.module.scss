@@ -33,31 +33,93 @@
     border: 1px solid #e5e7eb;
     padding: 40px;
 
+
+}
+
+.headerCategorias {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+
+    .tituloCategs {
+        color: vars.$colorPreto;
+        font-family: vars.$fontFamilyInter;
+        display: flex;
+
+        img {
+            width: 30px;
+        }
+    }
+
+    .qtdCategorias {
+        padding: 5px 10px;
+        background-color: #F2F2F2;
+        border-radius: 10px;
+        font-family: vars.$fontFamilyInter;
+        color: vars.$colorPreto;
+        border: 1px solid #e5e7eb;
+    }
+
 }
 
 .categoriasFundo {
-    width: 20%;
-    min-width: 200px;
-    max-width: 300px;
-    min-height: 10vh;
-    max-height: 10vh;
-    background-color: #FDFDFC;
-    border: 1px solid #e5e7eb;
-    padding: 10px;
+    position: relative;
+    flex: 1 1 300px;
+    max-width: 350px;
     border-radius: 10px;
     display: flex;
-    gap: 40px;
+    flex-direction: column;
+}
 
+.categoriasFundo::before {
+    content: '';
+    position: absolute;
+    top: -12px; // mais alto que antes
+    left: -12px;
+    right: -10px;
+    bottom: 10px;
+    background-color: #f0f0f0b5;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    z-index: 0;
+}
+
+
+.listaCategorias {
+    position: relative;
+    z-index: 1; // garante que fique acima do ::before
+    background: #f2f2f2;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+
+
+
+    .descricaoCategoria {
+        color: vars.$colorDescricaoPreto;
+        font-family: vars.$fontFamilyInter;
+        margin-top: 10px;
+    }
 
 }
+
 
 .listaCategoriaWrapper {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 60px;
     padding: 0;
     margin: 0;
+    list-style: none;
 }
+
+
 
 .listaCategorias {
     list-style: none;
@@ -66,7 +128,7 @@
     width: 100%;
     color: vars.$colorRosa;
 
-    .nomeCategoria{
+    .nomeCategoria {
         text-transform: capitalize;
         font-family: vars.$fontFamilyInter;
         font-size: vars.$fontSizeMedia;
@@ -75,8 +137,21 @@
 
     .iconesEdit {
         display: flex;
-        justify-content: end;
+        justify-content: space-between;
         margin-top: 30px;
+
+        .qtdProdutos {
+            color: vars.$colorDescricaoPreto;
+            font-family: vars.$fontFamilyInter;
+            position: relative;
+            display: flex;
+            align-items: center;
+
+
+            img {
+                width: 30px;
+            }
+        }
 
     }
 
