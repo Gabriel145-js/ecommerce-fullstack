@@ -4,6 +4,8 @@ import styles from './GerenciarCategorias.module.scss'
 import lixoIcon from '../../../../../assets/icons/lixoIcon.svg'
 import editIcon from '../../../../../assets/icons/editIcon.svg'
 import fecharIcon from '../../../../../assets/icons/fecharIcon.svg'
+import boxIcon from '../../../../../assets/icons/boxIcon.svg'
+import folderIcon from '../../../../../assets/icons/folderIcon.svg'
 
 const GerenciarCategorias = () => {
     const [categorias, setCategorias] = useState([])
@@ -12,6 +14,8 @@ const GerenciarCategorias = () => {
     const [nomeEditado, setNomeEditado] = useState('')
     const [descricaoCategoria, setDescricaoCategoria] = useState('')
     const [modalAberto, setModalAberto] = useState(false)
+    const [quantidadeProdutos, setQuantidadeProdutos] = useState([])
+
 
     const API_URL = import.meta.env.VITE_API_URL;
     const urlCategorias = useMemo(() => `${API_URL}/api/categorias`, [API_URL]);
@@ -43,6 +47,26 @@ const GerenciarCategorias = () => {
 
         exibirCategorias()
     }, [urlCategorias])
+
+    useEffect(() => {
+        const produtosQuantidade = async () => {
+            try {
+                const res = await fetch(urlCategorias + '/com-produtos', {
+                    method: 'GET',
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                const data = await res.json()
+                setQuantidadeProdutos(data)
+
+            } catch (error) {
+                console.error("erro ao exibir quantidade de produtos", error.message)
+            }
+
+        }
+        produtosQuantidade()
+    }, [])
 
     const handleDeleteCategoria = useCallback(async (id) => {
         if (!window.confirm('Tem certeza que deseja excluir esta categoria?')) {
@@ -81,7 +105,7 @@ const GerenciarCategorias = () => {
         console.log('Abrindo modal para categoria:', categoria) // Debug temporario
         setEditandoCategoria(categoria)
         setNomeEditado(categoria.nome)
-        setDescricaoCategoria(categoria.descricaoCategoria || '') 
+        setDescricaoCategoria(categoria.descricaoCategoria || '')
         setModalAberto(true)
     }, [])
 
@@ -251,32 +275,46 @@ const GerenciarCategorias = () => {
             </div>
 
             <div className={styles.containerCategorias}>
+                <div className={styles.headerCategorias}>
+                    <h2 className={styles.tituloCategs}><img src={folderIcon} alt="titulo categorias existentes" />Categorias Existentes</h2>
+                    <span className={styles.qtdCategorias}>{categorias.length} Categorias</span>
+                </div>
                 {Array.isArray(categorias) && categorias.length > 0 ? (
                     <ul className={styles.listaCategoriaWrapper}>
-                        {categorias.map(categ => (
-                            <li key={categ.id} className={styles.categoriasFundo}>
-                                <div className={styles.listaCategorias}>
-                                    <span className={styles.nomeCategoria}>{categ.nome}</span>
-                                    <span className={styles.descricaoCategoria}>{categ.descricaoCategoria}</span>
-                                    <div className={styles.iconesEdit}>
-                                        <img
-                                            className={styles.editCategoria}
-                                            src={editIcon}
-                                            alt="Editar categoria"
-                                            onClick={() => abrirModalEdicao(categ)}
-                                            title="Editar categoria"
-                                        />
-                                        <img
-                                            className={styles.deleteCategoria}
-                                            src={lixoIcon}
-                                            alt="Excluir categoria"
-                                            onClick={() => handleDeleteCategoria(categ.id)}
-                                            title="Excluir categoria"
-                                        />
+                        {categorias.map(categ => {
+                            // Encontra a quantidade de produtos para a categoria atual
+                            const qtdProdutos = quantidadeProdutos.find(q => q.id === categ.id)?.total_produtos || 0;
+
+                            return (
+                                <li key={categ.id} className={styles.categoriasFundo}>
+                                    <div className={styles.listaCategorias}>
+                                        <span className={styles.nomeCategoria}>{categ.nome}</span>
+                                        <p className={styles.descricaoCategoria}>{categ.descricaocategoria}</p>
+
+
+                                        <div className={styles.iconesEdit}>
+                                            <p className={styles.qtdProdutos} > <img src={boxIcon} alt="" />{qtdProdutos} Produtos</p>
+                                            <div>
+                                                <img
+                                                    className={styles.editCategoria}
+                                                    src={editIcon}
+                                                    alt="Editar categoria"
+                                                    onClick={() => abrirModalEdicao(categ)}
+                                                    title="Editar categoria"
+                                                />
+                                                <img
+                                                    className={styles.deleteCategoria}
+                                                    src={lixoIcon}
+                                                    alt="Excluir categoria"
+                                                    onClick={() => handleDeleteCategoria(categ.id)}
+                                                    title="Excluir categoria"
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                        ))}
+                                </li>
+                            );
+                        })}
                     </ul>
                 ) : (
                     <div className={styles.categoriasVazias}>
@@ -285,6 +323,7 @@ const GerenciarCategorias = () => {
                     </div>
                 )}
             </div>
+
 
             {/* Modal renderizado via portal */}
             {modalAberto && editandoCategoria && createPortal(ModalEdicao, document.body)}
