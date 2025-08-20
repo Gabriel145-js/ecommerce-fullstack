@@ -1,11 +1,28 @@
 @use '../../styles/variables.scss' as vars;
 @use '../../styles/animation.scss';
 
-.tituloProduto {
-    font-family: vars.$fontFamilyInter;
-    font-size: vars.$fontSizeGrande;
-    margin-left: 50px;
+.tituloSubtitulo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    line-height: 50px;
+    text-align: center;
 
+    h1 {
+        color: vars.$colorPreto;
+        font-family: vars.$fontFamilyInter;
+        font-size: 40px;
+    }
+
+    p {
+        color: vars.$colorDescricaoPreto;
+        font-family: vars.$fontFamilyInter;
+        font-size: 18px;
+
+    }
 }
 
 .cardProduto {
@@ -64,7 +81,7 @@
             }
         }
 
-        // Heart icon (if you want to add it)
+
         &::after {
             content: '♡';
             position: absolute;
@@ -110,8 +127,33 @@
     }
 }
 
+.btnTdsProdutos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
 
-// Responsive adjustments
+    .tdsProdutos {
+        border: 1px solid vars.$colorRosa;
+        border-radius: 10px;
+        font-family: vars.$fontFamilyInter;
+        font-size: vars.$fontSizeMedia;
+        padding: 10px 20px;
+        color: vars.$colorRosa;
+        transition: 0.3s ease-in-out;
+
+        &:hover {
+            transform: scale(1.08);
+            transition: 0.3s ease-in-out;
+            background-color: vars.$colorRosa;
+            color: #fff;
+
+        }
+
+    }
+
+}
+
 @media (max-width: 768px) {
     .cardProduto {
         grid-template-columns: 1fr;
@@ -132,7 +174,6 @@
     }
 }
 
-// Additional hover effects for better UX
 .produtoCard {
     &:hover {
         .produtoImagem {
