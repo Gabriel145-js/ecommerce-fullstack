@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './ProdutosList.module.scss'
 
 const ProdutosList = () => {
@@ -30,7 +30,10 @@ const ProdutosList = () => {
     return (
         <div>
 
-            <p className={styles.tituloProduto}>Produtos</p>
+            <div className={styles.tituloSubtitulo}>
+                <h1>Produtos em Destaque</h1>
+                <p>Peças cuidadosamente selecionadas para compor um guarda-roupa moderno e versátil</p>
+            </div>
             <ul className={styles.cardProduto}>
                 {produtos.map(prod => (
                     <li key={prod.id} className={styles.produtoCard}>
@@ -55,6 +58,10 @@ const ProdutosList = () => {
                     </li>
                 ))}
             </ul>
+
+            <div className={styles.btnTdsProdutos}>
+                <a className={styles.tdsProdutos}>Ver todos os produtos</a>
+            </div>
 
         </div>
     )
