@@ -1,0 +1,130 @@
+@use '../../styles/variables.scss' as vars;
+@use '../../styles/animation.scss';
+@use '../../styles/mixin.scss' as mix;
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 60px;
+    background-color: #fbe9e7;
+
+    .content {
+        max-width: 600px;
+
+        .subtitulo {
+            font-size: 14px;
+            color: #dacb04;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            font-family: vars.$fontFamilyInter;
+        }
+
+        .titulo {
+            font-size: 60px;
+            font-weight: 700;
+            color: #212121;
+            font-family: vars.$fontFamilyPlayFair;
+
+            span {
+                
+                color: vars.$colorRosa;
+                font-family: vars.$fontFamilyPlayFair;
+            }
+        }
+
+        .descricao {
+            font-size: 18px;
+            color: #424242;
+            margin: 20px 0;
+            font-family: vars.$fontFamilyInter;
+        }
+
+        .botoes {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+
+
+            .btnPrimario {
+                background-color: vars.$colorRosa;
+                color: #fff;
+                padding: 12px 24px;
+                border: 2px solid transparent;
+                border-radius: 12px;
+                cursor: pointer;
+                font-family: vars.$fontFamilyInter;
+                font-size: vars.$fontSizeMedia;
+                transition: 0.3s ease-in-out;
+
+                &:hover {
+                    transform: scale(1.08);
+                    transition: 0.3s ease-in-out;
+                    background-color: transparent;
+                    color: vars.$colorRosa;
+                    border: 2px solid vars.$colorRosa;
+                }
+            }
+
+            .btnSecundario {
+                background-color: transparent;
+                color: #e53935;
+                border: 2px solid vars.$colorRosa;
+                padding: 12px 24px;
+                border-radius: 12px;
+                cursor: pointer;
+                font-family: vars.$fontFamilyInter;
+                font-size: vars.$fontSizeMedia;
+                transition: 0.3s ease-in-out;
+
+                &:hover {
+                    transform: scale(1.08);
+                    transition: 0.3s ease-in-out;
+                    background-color: vars.$colorRosa;
+                    color: #fff;
+                    border: none;
+                }
+            }
+        }
+
+        .stats {
+            display: flex;
+            gap: 24px;
+            font-size: 16px;
+            color: #616161;
+            margin-bottom: 16px;
+
+
+            strong {
+                color: vars.$colorDescricaoPreto;
+                font-weight: 600;
+                font-family: vars.$fontFamilyInter;
+            }
+        }
+
+        .freteGratis {
+            font-size: 14px;
+            background-color: #ffffff;
+            padding: 8px 20px;
+            border-radius: 20px;
+            color: vars.$colorRosa;
+
+        }
+    }
+
+    .imagem {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        img {
+            width: 80%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+    }
+
+
+}
