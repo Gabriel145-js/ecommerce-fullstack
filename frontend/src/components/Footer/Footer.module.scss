@@ -1,0 +1,95 @@
+@use '../../styles/variables.scss' as vars;
+@use '../../styles/animation.scss';
+@use '../../styles/mixin.scss' as mix;
+
+
+.footer {
+    position: relative;
+    bottom: 0;
+    background-color: #282C34;
+    padding: 60px;
+    font-family: vars.$fontFamilyInter;
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        border-bottom: 1px solid #c3c3c388;
+        gap: 40px;
+    }
+
+    .coluna {
+        flex: 1;
+        min-width: 200px;
+
+        .logoFooter {
+            font-family: vars.$fontFamilyPlayFair;
+            color: vars.$colorRosa;
+            font-size: 24px;
+            pointer-events: none;
+            cursor: none;
+            
+        }
+
+
+        h4 {
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #fff;
+            font-size: 24px;
+        }
+
+        p {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #B5C0C2;
+            margin-bottom: 16px;
+            font-size: vars.$fontSizeMedia;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            display: inline-flex; 
+            flex-direction: column;
+            margin-bottom: 20px;
+
+            li {
+                font-size: vars.$fontSizeMedia;
+                color: #B5C0C2;
+                margin-bottom: 8px;
+                cursor: pointer;
+
+                &:hover {
+                    color: vars.$colorRosa;
+                }
+            }
+
+        }
+
+
+        .social {
+            display: flex;
+            gap: 12px;
+            font-size: 18px;
+            color: #e53935;
+
+            svg {
+                cursor: pointer;
+                transition: 0.3s;
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+    
+    .footerFinal{
+        margin-top: 40px;
+        font-family: vars.$fontFamilyInter;
+        display: flex;
+        justify-content: space-between;
+        color: #B5C0C2;
+    }
+}
