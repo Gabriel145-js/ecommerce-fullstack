@@ -8,7 +8,7 @@ const Navigation = () => {
   return (
 <nav className={styles.navbarContainer}>
   <div className={styles.navbarContent}>
-    <h1 className={styles.logo}>Elegante</h1>
+    <NavLink to='/' className={styles.logo}>Elegante</NavLink>
 
     <div className={styles.navbarLinks}>
       <NavLink>Novidades</NavLink>
