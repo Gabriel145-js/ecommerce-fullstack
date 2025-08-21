@@ -27,6 +27,11 @@ app.use('/api/categorias', categoriasRoutes)
 app.use('/api/produtos', produtosRoutes)
 app.use('/api/imagens', imagensProdutos)
 
+//Ping para ver se esta 'acordando' o servidor da Render via GitHub Actions
+app.get('/ping', (req, res) => {
+  res.send('pong ok');
+});
+
 
 //PORT é defenido no Render
 const PORT = process.env.PORT || 5000;
