@@ -28,15 +28,15 @@ app.use('/api/produtos', produtosRoutes)
 app.use('/api/imagens', imagensProdutos)
 
 //Ping para ver se esta 'acordando' o servidor da Render via GitHub Actions
-app.get('/ping', (req, res) => {
-  res.send('pong ok');
+app.get('/', (req, res) => {
+  res.send('Backend está online!');
 });
 
 
 //PORT é defenido no Render
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
 
 
