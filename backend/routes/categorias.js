@@ -122,7 +122,7 @@ router.patch('/:id', async (req, res) => {
     console.log('Categoria antes da atualização:', categoriaExistente[0]) // Debug temporario
     console.log('Novos valores:', { nome: nomeFormatado, descricao: descricaoFormatada }) // Debug temporario
 
-    // Atualiza sempre ambos os campos - mais simples e confiável
+    // Atualiza sempre ambos os campos 
     const atualizaCategoria = await db`
       UPDATE categorias 
       SET nome = ${nomeFormatado}, descricaocategoria = ${descricaoFormatada}
