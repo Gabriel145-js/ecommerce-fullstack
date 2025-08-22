@@ -6,6 +6,7 @@ import AddProduto from './components/Admin/AddProduto/AddProduto'
 import Navigation from './components/Navigation/Navigation'
 import GerenciarCategorias from './components/Admin/AddProduto/Categorias/GerenciarCategorias/GerenciarCategorias'
 import Footer from './components/Footer/Footer'
+import TodosProdutos from './components/Admin/AddProduto/TodosProdutos/TodosProdutos'
 
 function AppRoutes() {
   const location = useLocation()
@@ -21,6 +22,7 @@ function AppRoutes() {
         <Route path="/DashboardAdmin" element={<DashboardAdmin />}>
           <Route path="AddProduto" element={<AddProduto />} />
           <Route path="GerenciarCategorias" element={<GerenciarCategorias />} />
+          <Route path="TodosProdutos" element={<TodosProdutos/>} />
         </Route>
       </Routes>
       {!isAdminRoute && <Footer />}
