@@ -108,7 +108,7 @@ const AddProduto = () => {
     <div className={styles.containerAddProduto}>
       <header className={styles.titESubtitulo}>
         <h1>Administração de Produtos</h1>
-        <p>Crie, edite e gerencie os produtos do catálogo.</p>
+        <p>Crie produtos e categorias, adicione imagens e muito mais</p>
       </header>
 
       <section className={styles.quadroAdicionarProduto}>
