@@ -1,0 +1,145 @@
+@use '../../../../styles/variables.scss' as vars;
+@use '../../../../styles/animation.scss';
+@use '../../../../styles/mixin.scss' as mix;
+
+
+.containerTdsProdutos {
+    padding: 40px;
+
+}
+
+.titESubtitulo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+
+    h1 {
+        font-family: vars.$fontFamilyInter;
+        color: vars.$colorPreto;
+        font-size: vars.$fontSizeGrande;
+    }
+
+    p {
+        color: #000000a4;
+        font-size: vars.$fontSizeMedia;
+        font-family: vars.$fontFamilyInter;
+    }
+}
+
+.containerTabela {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: vars.$fontFamilyInter;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+
+}
+
+.titColunaTable {
+    background-color: #f5f5f5;
+}
+
+.linhaTitulos {
+    border-bottom: 2px solid #ddd;
+}
+
+.titulos {
+    text-align: left;
+    padding: 12px 16px;
+    font-weight: 600;
+    color: vars.$colorRosa;
+    font-size: 16px;
+}
+
+.linhaDados {
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+        background-color: #f9f9f9;
+    }
+
+    td {
+        padding: 12px 16px;
+        font-size: 15px;
+        color: #555;
+    }
+}
+
+.modalLabel {
+    @include mix.modalLabel
+}
+
+.modalOverlay {
+    @include mix.modal-overlay;
+}
+
+.modalContent {
+    @include mix.modal-content(500px);
+}
+
+.modalHeader {
+    @include mix.modal-header;
+}
+
+.modalActions {
+    @include mix.modal-actions
+}
+
+.closeButton {
+    @include mix.close-buton
+}
+
+.cancelButton {
+    @include mix.modal-button(#f5f5f5, #666, #f00000, #fff);
+}
+
+.createButton {
+    @include mix.modal-button(vars.$colorRosa, #fff, #237e07, #fff);
+}
+
+.containerAcoes {
+    display: flex;
+    gap: 10px;
+
+    .btnEditar {
+        padding: 5px 15px;
+        background-color: #E2D9CF;
+        color: vars.$colorPreto;
+        font-family: vars.$fontFamilyInter;
+        border: none;
+        border-radius: 10px;
+        transition: 0.3s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #d1c7bb; 
+            transform: scale(1.05);
+        }
+    }
+
+    .btnApagar {
+        padding: 5px 15px;
+        background-color: #F5DADA;
+        color: vars.$colorPreto;
+        font-family: vars.$fontFamilyInter;
+        border: none;
+        border-radius: 10px;
+        transition: 0.3s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #e74c3c; 
+            color: white;
+            transform: scale(1.05);
+        }
+    }
+
+    .avisoDelete {
+        padding: 20px;
+        color: vars.$colorPreto;
+        font-family: vars.$fontFamilyInter;
+    }
+}
