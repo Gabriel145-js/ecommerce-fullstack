@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../db/db')
+const e = require('express')
 
 // GET - Buscar todas as categorias (sem produtos)
 router.get('/', async (req, res) => {
@@ -12,6 +13,26 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: 'Erro ao buscar categorias' })
   }
 })
+
+//GET - Busca as categorias pelo ID
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const exibirCategorias = await db`SELECT * FROM categorias WHERE id = ${id}`;
+
+    if (exibirCategorias.length === 0) {
+      return res.status(404).json({ error: 'Categoria não encontrada' });
+    }
+
+    res.json(exibirCategorias[0]);
+
+  } catch (error) {
+    console.error('Erro interno ao buscar categoria', error);
+    res.status(500).json({ error: 'Erro interno ao buscar categoria' });
+  }
+});
+
 
 // GET - Buscar todas as categorias (com total de produtos)
 router.get('/com-produtos', async (req, res) => {
