@@ -117,12 +117,14 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        
 
         img {
             width: 80%;
-            height: auto;
+            height: 90vh;
             object-fit: cover;
             border-radius: 12px;
+       
         }
     }
 
