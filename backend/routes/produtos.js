@@ -14,6 +14,25 @@ router.get('/', async (req, res) => {
   }
 })
 
+//Metodo GET dos produtos pelo ID
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const response = await db`SELECT * FROM produtos WHERE id = ${id}`;
+
+    if (response.length === 0) {
+      return res.status(404).json({ error: 'Produto não encontrado' });
+    }
+
+    res.json(response[0]); // retorna só o produto, não um array
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: 'Erro ao buscar produto por ID' });
+  }
+});
+
+
 //Metodo POST de produtos
 router.post('/', async (req, res) => {
   const {
