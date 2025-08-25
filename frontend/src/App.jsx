@@ -7,6 +7,7 @@ import Navigation from './components/Navigation/Navigation'
 import GerenciarCategorias from './components/Admin/AddProduto/Categorias/GerenciarCategorias/GerenciarCategorias'
 import Footer from './components/Footer/Footer'
 import TodosProdutos from './components/Admin/AddProduto/TodosProdutos/TodosProdutos'
+import DetalhesProdutos from './components/Produtos/DetalhesProdutos/DetalhesProdutos'
 
 function AppRoutes() {
   const location = useLocation()
@@ -24,6 +25,7 @@ function AppRoutes() {
           <Route path="GerenciarCategorias" element={<GerenciarCategorias />} />
           <Route path="TodosProdutos" element={<TodosProdutos/>} />
         </Route>
+       <Route path="/Detalhes-Produto/:id/:nome" element={<DetalhesProdutos />} />
       </Routes>
       {!isAdminRoute && <Footer />}
     </>
