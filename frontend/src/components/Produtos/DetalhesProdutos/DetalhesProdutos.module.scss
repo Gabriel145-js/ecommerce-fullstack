@@ -1,0 +1,168 @@
+@use '../../../styles/variables.scss' as vars;
+@use '../../../styles/animation.scss';
+
+
+.sectionDetalhesProdutos {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+
+
+    .detalhesContainer {
+        display: flex;
+        padding: 1rem 4rem;
+        width: 100%;
+        gap: 3rem;
+        font-family: vars.$fontFamilyInter;
+        color: vars.$colorPreto;
+
+        .imgsProduto {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+
+
+            .imagemProduto {
+                width: 100%;
+                height: auto;
+                max-height: 600px;
+                object-fit: contain;
+                border-radius: 12px;
+                transition: opacity 0.5s ease-in-out;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+                &.fadeOut {
+                    opacity: 0;
+                }
+            }
+
+            .imagensAdicionais {
+                margin-top: 1rem;
+
+
+                .galeria {
+                    display: flex;
+                    gap: 1rem;
+                    flex-wrap: wrap;
+
+                    .fotoAdicional {
+                        width: 120px;
+                        height: 120px;
+                        object-fit: cover;
+                        border-radius: 6px;
+                        border: 1px solid #ccc;
+                        transition: transform 0.3s;
+                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+                        &:hover {
+                            transform: scale(1.05);
+                        }
+                    }
+                }
+            }
+        }
+
+        .detalhesProduto {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 10px;
+
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .preco {
+                font-size: 2rem;
+                font-weight: bold;
+                color: vars.$colorPreto;
+                margin-bottom: 1rem;
+            }
+
+            .tamanhos {
+                strong {
+                    display: block;
+                    margin-bottom: 0.5rem;
+                    font-weight: 600;
+                    color: #333;
+                }
+
+                .opcoes {
+                    display: flex;
+                    gap: 1rem;
+                    flex-wrap: wrap;
+                }
+
+                .checkbox {
+                    display: none;
+
+                    &:checked+label {
+                        border: 1px solid #d32f2f;
+                        color: #d32f2f;
+                    }
+                }
+
+                .tamanho {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    border: 1px solid #c6c6c65d;
+                    padding: 10px 20px;
+                    border-radius: 12px;
+                    transition: all 0.3s ease;
+                    font-size: 1rem;
+                    color: #000;
+                    user-select: none;
+                }
+            }
+
+
+
+            .descricao {
+                margin: 1rem 0;
+                font-size: 1rem;
+                color: vars.$colorDescricaoPreto;
+                line-height: 1.6;
+            }
+
+            .btnComprarEstoque {
+                padding: 10px;
+                width: 100%;
+                border: 1px solid #c6c6c65d;
+                border-radius: 10px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+
+                .btnComprar {
+                    background-color: vars.$colorRosa;
+                    color: #fff;
+                    border: none;
+                    width: 100%;
+                    padding: 0.75rem 1.5rem;
+                    font-size: 1rem;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    transition: background-color 0.3s;
+
+                    &:hover {
+                        background-color: vars.$hoverRosa;
+                    }
+                }
+
+                p {
+                    color: vars.$colorDescricaoPreto;
+                    font-family: vars.$fontFamilyInter;
+
+                }
+            }
+
+
+        }
+    }
+}
