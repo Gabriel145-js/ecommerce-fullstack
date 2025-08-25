@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import styles from './ProdutosList.module.scss'
 
+import { useNavigate } from 'react-router-dom';
+
 const ProdutosList = () => {
+    const navigate = useNavigate()
     const [produtos, setProdutos] = useState([])
 
     const API_URL = import.meta.env.VITE_API_URL;
     const urlProdutos = `${API_URL}/api/produtos`;
 
+
     useEffect(() => {
         const exibirProdutos = async () => {
             try {
+                
+
                 const res = await fetch(urlProdutos, {
                     method: 'GET',
                     headers: {
@@ -36,7 +42,7 @@ const ProdutosList = () => {
             </div>
             <ul className={styles.cardProduto}>
                 {produtos.map(prod => (
-                    <li key={prod.id} className={styles.produtoCard}>
+                    <li key={prod.id} className={styles.produtoCard} onClick={() => navigate(`/Detalhes-Produto/${prod.id}/${prod.nome}`)}>
 
                         {prod.imagem_principal && (
                             <img src={prod.imagem_principal} alt={prod.nome} className={styles.produtoImagem} />
