@@ -11,7 +11,6 @@ CREATE TABLE produtos (
     descricao VARCHAR(500),
     preco NUMERIC(10, 2) NOT NULL,
     estoque INTEGER NOT NULL,
-    tamanho BOOLEAN NOT NULL,
     tamanho_p BOOLEAN DEFAULT FALSE,
     tamanho_m BOOLEAN DEFAULT FALSE,
     tamanho_g BOOLEAN DEFAULT FALSE,
