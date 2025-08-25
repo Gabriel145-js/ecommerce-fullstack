@@ -107,7 +107,10 @@ const Acoes = ({ produto }) => {
                                 </div>
                             </>
                         ) : (
-                            <p className={styles.avisoDelete}>Tem certeza que deseja apagar o produto <strong>{produto.nome}</strong>? Essa ação não pode ser desfeita.</p>
+
+                            <p style ={{padding: '20px', color: '#282c34', fontFamily: 'Inter'}}> {/* nao esta recebendo estilo via className */} 
+                                Tem certeza que deseja apagar o produto <strong>{produto.nome}</strong>? Essa ação não pode ser desfeita.
+                            </p>
                         )}
 
                         <div className={styles.modalActions}>
