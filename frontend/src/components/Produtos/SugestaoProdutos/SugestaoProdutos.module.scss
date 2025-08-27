@@ -1,0 +1,329 @@
+@use '../../../styles/variables.scss' as vars;
+@use '../../../styles/animation.scss';
+
+.container {
+    padding: 20px;
+    background-color: #FBFBFA;
+
+    .tituloSubtitulo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        line-height: 50px;
+        text-align: center;
+
+        h1 {
+            color: vars.$colorPreto;
+            font-family: vars.$fontFamilyInter;
+            font-size: 40px;
+        }
+
+        p {
+            color: vars.$colorDescricaoPreto;
+            font-family: vars.$fontFamilyInter;
+            font-size: 18px;
+        }
+    }
+
+    .btnTdsProdutos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 40px;
+
+        .tdsProdutos {
+            border: 1px solid vars.$colorRosa;
+            border-radius: 10px;
+            font-family: vars.$fontFamilyInter;
+            font-size: vars.$fontSizeMedia;
+            padding: 10px 20px;
+            color: vars.$colorRosa;
+            transition: 0.3s ease-in-out;
+            cursor: pointer;
+
+            &:hover {
+                transform: scale(1.08);
+                transition: 0.3s ease-in-out;
+                background-color: vars.$colorRosa;
+                color: #fff;
+            }
+        }
+    }
+
+    // Container para o Swiper com setas
+    .swiperContainer {
+        position: relative;
+        margin-bottom: 40px;
+    }
+
+    .swiperWrapper {
+        padding: 0 40px;
+
+
+        @media (max-width: 768px) {
+            padding: 0 50px;
+        }
+    }
+
+    // Estilização das setas de navegação
+    :global(.swiper-button-next),
+    :global(.swiper-button-prev) {
+        color: vars.$colorRosa !important;
+        background: white;
+        width: 48px !important;
+        height: 48px !important;
+        border-radius: 50%;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        margin-top: -24px;
+
+        &:after {
+            font-size: 18px !important;
+            font-weight: bold;
+        }
+
+        &:hover {
+            background: vars.$colorRosa;
+            color: white !important;
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        &.swiper-button-disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+
+            &:hover {
+                transform: none;
+                background: white;
+                color: vars.$colorRosa !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            width: 40px !important;
+            height: 40px !important;
+            margin-top: -20px;
+
+            &:after {
+                font-size: 14px !important;
+            }
+        }
+    }
+
+    :global(.swiper-button-next) {
+        right: 15px;
+
+        @media (max-width: 768px) {
+            right: 10px;
+        }
+    }
+
+    :global(.swiper-button-prev) {
+        left: 15px;
+
+        @media (max-width: 768px) {
+            left: 10px;
+        }
+    }
+
+    .containerCards {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        .cardProduto {
+            position: relative;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            max-width: 320px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+
+
+            height: auto;
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            }
+
+            .imagenProduto {
+                width: 100%;
+                height: 220px;
+                object-fit: cover;
+                object-position: center;
+                display: block;
+                background-color: #f8f9fa;
+            }
+
+            .produtoNome {
+                padding: 0 16px;
+                margin: 16px 0 12px 0;
+                font-size: 16px;
+                font-weight: 600;
+                color: #2c3e50;
+                line-height: 1.4;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                min-height: 44px;
+            }
+
+            .preco {
+                padding: 0 16px;
+                margin: 0 0 16px 0;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                flex-wrap: wrap;
+
+                .precoOriginal {
+                    font-size: 14px;
+                    color: #999;
+                    text-decoration: line-through;
+                    font-weight: 400;
+                    order: 2;
+                }
+
+                .precoPromocional {
+                    font-size: 20px;
+                    font-weight: 700;
+                    color: #e74c3c;
+                    order: 1;
+                }
+            }
+
+            .containerBtnCarrinho {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0 16px 16px 16px;
+                margin-top: auto;
+
+                .btnAdicionarCarrinho {
+                    font-family: vars.$fontFamilyInter;
+                    font-size: 14px;
+                    font-weight: 600;
+                    border-radius: 8px;
+                    padding: 12px 20px;
+                    border: none;
+                    background-color: vars.$colorRosa;
+                    color: #fff;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    width: 100%;
+                    max-width: 250px;
+
+                    &:hover {
+                        background-color: darken(vars.$colorRosa, 8%);
+                        transform: translateY(-1px);
+                    }
+
+                    &:active {
+                        transform: translateY(0);
+                    }
+                }
+            }
+        }
+    }
+
+    // Estados de loading/erro
+    .loading,
+    .erro,
+    .vazio {
+        text-align: center;
+        padding: 40px;
+        font-family: vars.$fontFamilyInter;
+        font-size: 16px;
+        color: vars.$colorDescricaoPreto;
+    }
+
+    .erro {
+        color: #e74c3c;
+    }
+
+    // Responsividade
+    @media (max-width: 1200px) {
+        .containerCards .cardProduto {
+            max-width: 300px;
+
+            .imagenProduto {
+                height: 260px;
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        padding: 15px;
+
+        .tituloSubtitulo {
+            margin-top: 20px;
+            margin-bottom: 30px;
+
+            h1 {
+                font-size: 32px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+
+        .containerCards {
+            padding: 0 8px;
+
+            .cardProduto {
+                max-width: 280px;
+
+                .imagenProduto {
+                    height: 200px;
+                }
+
+                .produtoNome {
+                    font-size: 15px;
+                    padding: 0 12px;
+                    margin: 12px 0 10px 0;
+                }
+
+                .preco {
+                    padding: 0 12px;
+                    margin: 0 0 12px 0;
+
+                    .precoPromocional {
+                        font-size: 18px;
+                    }
+                }
+
+                .containerBtnCarrinho {
+                    padding: 0 12px 12px 12px;
+
+                    .btnAdicionarCarrinho {
+                        font-size: 13px;
+                        padding: 10px 16px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 480px) {
+        .containerCards .cardProduto {
+            max-width: 260px;
+
+            .imagenProduto {
+                height: 180px;
+            }
+        }
+    }
+}
