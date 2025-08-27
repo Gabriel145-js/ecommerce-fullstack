@@ -32,6 +32,19 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+//Metodo GET para exibir os produtos da categoria
+router.get('/:id/produtos', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const produtosPorCategoria = await db`SELECT * FROM produtos WHERE categorias_id = ${id}`;
+    res.json({ produtos: produtosPorCategoria });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: "Erro ao buscar produtos por categoria" });
+  }
+});
+
 
 //Metodo POST de produtos
 router.post('/', async (req, res) => {
