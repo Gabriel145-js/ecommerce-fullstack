@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './DetalhesProdutos.module.scss';
-import ProdutosList from '../ProdutosList';
 import SugestaoProdutos from '../SugestaoProdutos/SugestaoProdutos';
+
 
 const DetalhesProdutos = () => {
     const { id } = useParams();
@@ -61,6 +61,7 @@ const DetalhesProdutos = () => {
     return (
         <>
             <section className={styles.sectionDetalhesProdutos}>
+               
                 <div className={styles.detalhesContainer}>
                     <div className={styles.imgsProduto}>
                         <img src={imagemSelecionada} alt={produto.nome} className={`${styles.imagemProduto} ${fade ? styles.fadeOut : ''}`} />
@@ -99,6 +100,26 @@ const DetalhesProdutos = () => {
                                         </label>
                                     </div>
                                 ))}
+                                
+                            </div>
+                        </div>
+
+                        <div className={styles.tamanhos}>
+                            <strong>Cor</strong>
+                            <div className={styles.opcoes}>
+                                {tamanhos.map((tamanho, index) => (
+                                    <div key={index}>
+                                        <input
+                                            type="checkbox"
+                                            id={`tamanho-${tamanho}`}
+                                            className={styles.checkbox}
+                                        />
+                                        <label htmlFor={`tamanho-${tamanho}`} className={styles.tamanho}>
+                                            {tamanho}
+                                        </label>
+                                    </div>
+                                ))}
+                                
                             </div>
                         </div>
 
@@ -107,8 +128,10 @@ const DetalhesProdutos = () => {
                             <button className={styles.btnComprar}>Comprar agora</button>
                             <p>{produto.estoque} em estoque</p>
                         </div>
-                        <h3>Descrição</h3>
-                        <p className={styles.descricao}>{produto.descricao}</p>
+                        <div className={styles.descricaoProduto}>
+                            <h3>Descrição</h3>
+                            <p className={styles.descricao}>{produto.descricao}</p>
+                        </div>
                     </div>
                 </div>
 
