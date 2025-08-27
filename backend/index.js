@@ -27,6 +27,9 @@ app.use('/api/categorias', categoriasRoutes)
 app.use('/api/produtos', produtosRoutes)
 app.use('/api/imagens', imagensProdutos)
 
+app.use('/api/categorias', produtosRoutes); //Rota especial para linkar a sugestao de produtos nos detalhes do produto, ela esta exibindo os produtos por categoria
+
+
 //Ping para ver se esta 'acordando' o servidor da Render via GitHub Actions
 app.get('/', (req, res) => {
   res.send('Backend está online!');
