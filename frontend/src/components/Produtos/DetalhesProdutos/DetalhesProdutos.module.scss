@@ -86,17 +86,20 @@
                     display: block;
                     margin-bottom: 0.5rem;
                     font-weight: 600;
-                    color: #333;
+                    color: vars.$colorDescricaoPreto;
+                    font-size: 1.1rem;
                 }
 
                 .opcoes {
                     display: flex;
                     gap: 1rem;
                     flex-wrap: wrap;
+                    color: vars.$colorDescricaoPreto;
                 }
 
                 .checkbox {
                     display: none;
+                    color: vars.$colorDescricaoPreto;
 
                     &:checked+label {
                         border: 1px solid #d32f2f;
@@ -119,14 +122,26 @@
                 }
             }
 
+            .descricaoProduto {
+                margin: 0;
 
+                h3 {
+                    color: vars.$colorDescricaoPreto;
+                    font-family: vars.$fontFamilyInter;
+                    font-size: 1.3rem;
+                    margin: 0;
 
-            .descricao {
-                margin: 1rem 0;
-                font-size: 1rem;
-                color: vars.$colorDescricaoPreto;
-                line-height: 1.6;
+                }
+
+                .descricao {
+                    margin: 1rem 0;
+                    font-size: 1rem;
+                    color: vars.$colorDescricaoPreto;
+                    line-height: 1.6;
+                }
             }
+
+
 
             .btnComprarEstoque {
                 padding: 10px;
