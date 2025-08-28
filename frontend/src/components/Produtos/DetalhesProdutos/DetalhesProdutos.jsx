@@ -11,7 +11,7 @@ const DetalhesProdutos = () => {
     const [imagemSelecionada, setImagemSelecionada] = useState(null);
     const [imagensAdicionais, setImagensAdicionais] = useState([]);
     const [quantidade, setQuantidade] = useState(1);
-    const [esmaecendo, setEsmaecendo] = useState(false);
+    const [fadeOut, setFadeOut] = useState(false);
     const [sucessoPedido, setSucessoPedido] = useState(false);
 
     const API_URL = import.meta.env.VITE_API_URL;
@@ -40,7 +40,7 @@ const DetalhesProdutos = () => {
     }, [id]);
 
     const trocarImagemComFade = (novaImagem) => {
-        setEsmaecendo(true); // inicia fade-out
+        setFadeOut(true); // inicia fade-out
 
         setTimeout(() => {
             setImagensAdicionais(prev => {
@@ -49,7 +49,7 @@ const DetalhesProdutos = () => {
                 return [...novaGaleria, atualPrincipal];
             });
             setImagemSelecionada(novaImagem); // troca imagem
-            setEsmaecendo(false); // remove fade
+            setFadeOut(false); // remove fade
         }, 300);
     };
 
@@ -118,7 +118,7 @@ const DetalhesProdutos = () => {
 
                 <div className={styles.detalhesContainer}>
                     <div className={styles.imgsProduto}>
-                        <img src={imagemSelecionada} alt={produto.nome} className={`${styles.imagemProduto} ${esmaecendo ? styles.esmaecido : ''}`} />
+                        <img src={imagemSelecionada} alt={produto.nome} className={`${styles.imagemProduto} ${fadeOut ? styles.fadeOut : ''}`} />
                         {imagensAdicionais.length > 0 && (
                             <div className={styles.imagensAdicionais}>
                                 <div className={styles.galeria}>
