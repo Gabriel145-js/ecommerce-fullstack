@@ -9,6 +9,7 @@ import Footer from './components/Footer/Footer'
 import TodosProdutos from './components/Admin/AddProduto/TodosProdutos/TodosProdutos'
 import DetalhesProdutos from './components/Produtos/DetalhesProdutos/DetalhesProdutos'
 import Breadcrumb from './components/Navigation/BreadCrumb/Breadcrumb'
+import CarrinhoCompras from './components/CarrinhoCompras/CarrinhoCompras'
 
 function AppRoutes() {
   const location = useLocation()
@@ -28,6 +29,7 @@ function AppRoutes() {
           <Route path="TodosProdutos" element={<TodosProdutos />} />
         </Route>
         <Route path="/Detalhes-Produto/:id/:nome" element={<DetalhesProdutos />} />
+        <Route path="/CarrinhoCompras" element={<CarrinhoCompras/>} />
       </Routes>
       {!isAdminRoute && <Footer />}
     </>
