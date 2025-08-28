@@ -1,7 +1,7 @@
 @use '../../styles/variables.scss' as vars;
 @use '../../styles/animation.scss';
 
-.navbarContainer {
+.containerNavbar {
     width: 100%;
     padding: 10px 0;
     box-shadow: -2px 2px 40px -1px rgba(0, 0, 0, 0.21);
@@ -11,7 +11,7 @@
 
 }
 
-.navbarContent {
+.conteudoNavbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -19,7 +19,7 @@
 
 }
 
-.navbarLinks {
+.linksNavbar {
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -54,13 +54,14 @@
 }
 
 
-.navbarIcons {
+.iconesNavbar {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
 
-    a {
+    a,
+    .botaoIcone {
         position: relative;
         display: inline-flex;
         align-items: center;
@@ -68,8 +69,8 @@
         cursor: pointer;
 
         img {
-            width: 20px;
-            height: 20px;
+            width: 30px;
+            height: 25px;
         }
 
         &:hover::before {
@@ -81,6 +82,13 @@
             z-index: -1;
             border-radius: 10px; 
         }
+    }
+
+    .botaoIcone {
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
     }
 }
 
