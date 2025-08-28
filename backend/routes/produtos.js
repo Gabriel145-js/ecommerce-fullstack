@@ -53,6 +53,7 @@ router.post('/', async (req, res) => {
     descricao,
     preco,
     estoque,
+    cor,
     imagem_principal,
     imagens_adicionais,
     tamanho_p,
@@ -66,12 +67,12 @@ router.post('/', async (req, res) => {
 
     const criarProduto = await db`
     INSERT INTO produtos (
-    nome, descricao, preco, estoque,
+    nome, descricao, preco, estoque, cor,
     imagem_principal, imagens_adicionais,
     tamanho_p, tamanho_m, tamanho_g,
     categorias_id
   ) VALUES (
-    ${nome}, ${descricao}, ${preco}, ${estoque},
+    ${nome}, ${descricao}, ${preco}, ${estoque}, ${cor},
     ${imagem_principal}, ${imagensArray},
     ${tamanho_p}, ${tamanho_m}, ${tamanho_g},
     ${categorias_id}
@@ -92,11 +93,12 @@ router.patch('/:id', async (req, res) => {
   const nomeFormatar = req.body.nome?.trim() || null
   const precoFormatar = req.body.preco?.toString().trim() || null
   const estoqueFormatar = req.body.estoque?.toString().trim() || null
+  const corFormatar = req.body.cor?.trim() || null
 
   try {
     const atualizaProdutos = await db`
       UPDATE produtos 
-      SET nome = ${nomeFormatar}, preco = ${precoFormatar}, estoque = ${estoqueFormatar}
+      SET nome = ${nomeFormatar}, preco = ${precoFormatar}, estoque = ${estoqueFormatar}, cor = ${corFormatar}
       WHERE id = ${produtoId}
       RETURNING *`
 
