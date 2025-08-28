@@ -1,0 +1,114 @@
+@use '../../styles/variables.scss' as vars;
+@use '../../styles/animation.scss';
+
+.sobreposicaoModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: flex-end;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.conteudoModal {
+    background-color: #fff;
+    width: 100%;
+    max-width: 450px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -5px 0px 15px rgba(0, 0, 0, 0.15);
+    animation: slideInFromRight 0.3s ease-out;
+}
+
+.cabecalhoModal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+
+    h2 {
+        margin: 0;
+        font-family: vars.$fontFamilyInter;
+        font-size: vars.$fontSizeGrande;
+        color: vars.$colorPreto;
+    }
+}
+
+.botaoFechar {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background-color: #f0f0f0;
+    }
+
+    img {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.corpoModal {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px 20px;
+}
+
+.carrinhoVazio {
+    text-align: center;
+    color: #666;
+    font-family: vars.$fontFamilyInter;
+    padding-top: 40px;
+}
+
+.listaItens {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.rodapeModal {
+    padding: 20px;
+    border-top: 1px solid #e0e0e0;
+    background-color: #f9f9f9;
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    font-family: vars.$fontFamilyInter;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.botaoFinalizar {
+    width: 100%;
+    padding: 15px;
+    background-color: vars.$colorRosa;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: darken(vars.$colorRosa, 10%);
+    }
+}
+
