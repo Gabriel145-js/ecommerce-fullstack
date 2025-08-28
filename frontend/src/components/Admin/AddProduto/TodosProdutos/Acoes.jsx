@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import {Link} from 'react-router-dom'
 import styles from './TodosProdutos.module.scss'
 import fecharIcon from '../../../../assets/icons/fecharIcon.svg'
 import { createPortal } from 'react-dom'
@@ -135,7 +136,7 @@ const Acoes = ({ produto }) => {
         <div className={styles.containerAcoes}>
             <div className={styles.containerAcoes}>
                 <button className={styles.btnEditar} onClick={() => setTipoModal('editar')}>Editar</button>
-                <button className={styles.btnEditar} >Detalhes</button>
+                <Link to={`/Detalhes-Produto/${produto.id}/${produto.nome}` } className={styles.btnEditar} >Detalhes</Link>
                 <button className={styles.btnApagar} onClick={() => setTipoModal('apagar')}>Apagar</button>
             </div>
 
