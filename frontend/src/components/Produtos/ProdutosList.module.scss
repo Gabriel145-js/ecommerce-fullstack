@@ -25,89 +25,156 @@
     }
 }
 
-.cardProduto {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 10px;
-    padding: 2rem;
-    list-style: none;
-    margin: 0;
+.swiperContainer {
+    position: relative;
+    padding: 10px;
 
-    .produtoCard {
-        position: relative;
+    .cardProduto {
+        padding: 0 90px;
+    }
+
+    :global(.swiper-button-next),
+    :global(.swiper-button-prev) {
+        color: vars.$colorRosa !important;
         background: white;
-        border-radius: 16px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        overflow: hidden;
+        width: 48px !important;
+        height: 48px !important;
+        border-radius: 50%;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         transition: all 0.3s ease;
-        width: 90%;
-        max-width: 400px;
-        margin: 0 auto;
+        margin-top: -24px;
+
+        &:after {
+            font-size: 18px !important;
+            font-weight: bold;
+        }
 
         &:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            background: vars.$colorRosa;
+            color: white !important;
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
-        .produtoImagem {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            display: block;
-        }
+        &.swiper-button-disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
 
-        .produtoNome {
-            padding: 0 20px;
-            margin: 20px 0 12px 0;
-            font-size: 20px;
-            font-weight: 600;
-            color: #2c3e50;
-            line-height: 1.3;
-        }
-
-
-        .preco {
-            padding: 0 20px 24px 20px;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-
-            .precoOriginal {
-                font-size: 16px;
-                color: #999;
-                text-decoration: line-through;
-                font-weight: 400;
+            &:hover {
+                transform: none;
+                background: white;
+                color: vars.$colorRosa !important;
             }
         }
 
+        @media (max-width: 768px) {
+            width: 40px !important;
+            height: 40px !important;
+            margin-top: -20px;
 
-        &::after {
-            content: '♡';
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: #999;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(4px);
-
-            &:hover {
-                color: #FF4757;
-                background: white;
-                transform: scale(1.1);
+            &:after {
+                font-size: 14px !important;
             }
         }
     }
+
+    :global(.swiper-button-next) {
+        right: 15px;
+
+        @media (max-width: 768px) {
+            right: 10px;
+        }
+    }
+
+    :global(.swiper-button-prev) {
+        left: 15px;
+
+        @media (max-width: 768px) {
+            left: 10px;
+        }
+    }
 }
+
+
+.produtoCard {
+    position: relative;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+
+    .produtoImagem {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .produtoNome {
+        padding: 0 20px;
+        margin: 20px 0 12px 0;
+        font-size: 20px;
+        font-weight: 600;
+        color: #2c3e50;
+        line-height: 1.3;
+    }
+
+
+    .preco {
+        padding: 0 20px 24px 20px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        .precoOriginal {
+            font-size: 16px;
+            color: #999;
+            text-decoration: line-through;
+            font-weight: 400;
+        }
+    }
+
+
+    &::after {
+        content: '♡';
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        color: #999;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(4px);
+
+        &:hover {
+            color: #FF4757;
+            background: white;
+            transform: scale(1.1);
+        }
+    }
+}
+
 
 .containerBtnCarrinho {
     display: flex;
@@ -132,6 +199,7 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 40px;
+    margin-top: 40px;
 
     .tdsProdutos {
         border: 1px solid vars.$colorRosa;
