@@ -92,7 +92,7 @@ const DetalhesProdutos = () => {
         //Salva o carrinho atualizado no localStorage
         localStorage.setItem('carrinho', JSON.stringify(novoCarrinho));
 
-
+        setQuantidade(1)
         setSucessoPedido(true);
     };
 
@@ -148,7 +148,7 @@ const DetalhesProdutos = () => {
                                             type="checkbox"
                                             id={`tamanho-${tamanho}`}
                                             className={styles.checkbox}
-                                        
+
                                         />
                                         <label htmlFor={`tamanho-${tamanho}`} className={styles.tamanho}>
                                             {tamanho}
@@ -174,10 +174,12 @@ const DetalhesProdutos = () => {
                         </div>
 
                         <div className={styles.qtdProdutos}>
-                            <strong>Quantidade</strong>
-                            <button type="button" onClick={() => setQuantidade(q => Math.max(1, q - 1))}>-</button>
-                            <input type="number" name="quantidade" value={quantidade} onChange={e => setQuantidade(Number(e.target.value))} min={1} />
-                            <button type="button" onClick={() => setQuantidade(q => q + 1)}>+</button>
+                            <strong>Quantidade</strong><br />
+                            <div className={styles.btnQtd}>
+                                <button type="button" onClick={() => setQuantidade(q => Math.max(1, q - 1))}>-</button>
+                                <input type="text" name="quantidade" value={quantidade} onChange={e => setQuantidade(Number(e.target.value))} min={1} />
+                                <button type="button" onClick={() => setQuantidade(q => q + 1)}>+</button>
+                            </div>
                         </div>
 
                         <div className={styles.btnComprarEstoque}>
