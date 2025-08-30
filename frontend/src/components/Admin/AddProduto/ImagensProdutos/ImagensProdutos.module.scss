@@ -6,11 +6,25 @@
     color: vars.$colorPreto;
     margin-bottom: 5px;
     font-weight: 500;
+}
 
+.sectionImagensProdutos {
+    display: flex;
+    justify-content: center;
+    gap: 20px; 
+    width: 100%;
+    margin-bottom: 40px;
+}
 
+.labelInput {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .customFileButton {
+    width: 100%; // Ocupa toda a largura disponível
     display: flex;
     align-items: center;
     gap: 8px;
@@ -23,7 +37,6 @@
     font-size: 14px;
     cursor: pointer;
     transition: all 0.3s ease;
-    width: 100%;
     justify-content: center;
 
     &:hover {
