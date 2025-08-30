@@ -37,15 +37,21 @@
 }
 
 .formProduto {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.sectionDadosProd {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     padding: 20px;
 
-    // Responsivo: quebra para uma coluna em telas menores
     @media (max-width: 1100px) {
         grid-template-columns: 1fr;
     }
+
 }
 
 .labelInput {
@@ -167,9 +173,54 @@
     }
 }
 
+
+.tagsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    /* permite quebrar linha se necessário */
+    gap: 8px;
+    /* espaçamento entre as tags */
+    margin-top: 10px;
+
+
+    .containerTagCor {
+        display: inline-flex;
+        flex-direction: row;
+        margin-top: 10px;
+
+        .tagCor {
+            padding: 8px 8px;
+            border: 1px solid #cfcfcf94;
+            border-radius: 12px;
+            font-family: vars.$fontFamilyInter;
+            font-size: 14px;
+            color: vars.$colorPreto;
+            cursor: pointer;
+            text-transform: capitalize;
+        }
+
+        .removeTagsCor {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            padding: 2px 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin-left: 8px;
+        }
+
+        .removeTagsCor:hover {
+            background-color: #c0392b;
+        }
+
+    }
+}
+
 // Estilos do Modal
 .modalLabel {
-  @include mix.modalLabel
+    @include mix.modalLabel
 }
 
 .modalOverlay {
@@ -188,7 +239,7 @@
     @include mix.modal-actions
 }
 
-.closeButton{
+.closeButton {
     @include mix.close-buton
 }
 
