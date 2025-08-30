@@ -27,10 +27,6 @@ const SelecionaCategoria = ({ categorias, setCategorias, selecionaCategoria, set
             return;
         }
 
-        console.log('Dados sendo enviados:', {
-            nome: novaCategoria,
-            descricaoCategoria: descricaoCategoria
-        }); // Debug temporario
 
         try {
             const res = await fetch(urlCategorias, {
@@ -49,7 +45,6 @@ const SelecionaCategoria = ({ categorias, setCategorias, selecionaCategoria, set
             }
 
             const data = await res.json();
-            console.log('Resposta do servidor:', data); // Debug temporario
             
             // Verifica se a resposta contém os dados corretos
             const novaCategoriaCriada = Array.isArray(data) ? data[0] : data;
@@ -108,7 +103,6 @@ const SelecionaCategoria = ({ categorias, setCategorias, selecionaCategoria, set
                 }
                 
                 const data = await res.json()
-                console.log('Categorias carregadas:', data); // Debug temporario
                 setCategorias(data)
             } catch (error) {
                 console.error('Erro ao carregar categorias:', error)
