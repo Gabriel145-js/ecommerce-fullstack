@@ -161,17 +161,25 @@ const DetalhesProdutos = () => {
                         <div className={styles.tamanhos}>
                             <strong>Cores</strong>
                             <div className={styles.opcoes}>
-                                <input
-                                    type="checkbox"
-                                    id={`cor-${produto.cor}`}
-                                    className={styles.checkbox}
-                                />
-                                <label htmlFor={`cor-${produto.cor}`} className={styles.tamanho}>
-                                    {produto.cor}
-                                </label>
+                                {Array.isArray(produto.cor) ? (
+                                    produto.cor.map((cor, index) => (
+                                        <button
+                                            key={index}
+                                            type="button"
+                                            className={styles.tamanho}
+                                        // Adicione lógica para selecionar cor, se quiser
+                                        >
+                                            {cor}
+                                        </button>
+                                    ))
+                                ) : (
+                                    <button type="button" className={styles.tamanho}>
+                                        {produto.cor}
+                                    </button>
+                                )}
                             </div>
-
                         </div>
+
 
                         <div className={styles.qtdProdutos}>
                             <strong>Quantidade</strong><br />
