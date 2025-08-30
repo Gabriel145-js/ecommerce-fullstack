@@ -74,7 +74,6 @@ const GerenciarCategorias = () => {
         }
 
         try {
-            console.log('Deletando categoria ID:', id) // Debug temporario
 
             const res = await fetch(`${urlCategorias}/${id}`, {
                 method: 'DELETE',
@@ -83,11 +82,9 @@ const GerenciarCategorias = () => {
                 }
             })
 
-            console.log('Response status DELETE:', res.status) // Debug temporario
 
             if (res.ok) {
                 const responseData = await res.json()
-                console.log('Delete response:', responseData) // Debug temporario
                 setCategorias(prev => prev.filter(c => c.id !== id))
                 alert('Categoria excluída com sucesso!')
             } else {
@@ -102,7 +99,6 @@ const GerenciarCategorias = () => {
     }, [urlCategorias])
 
     const abrirModalEdicao = useCallback((categoria) => {
-        console.log('Abrindo modal para categoria:', categoria) // Debug temporario
         setEditandoCategoria(categoria)
         setNomeEditado(categoria.nome)
         setDescricaoCategoria(categoria.descricaoCategoria || '')
@@ -129,18 +125,11 @@ const GerenciarCategorias = () => {
         }
 
         try {
-            console.log('Atualizando categoria:', {
-                id: editandoCategoria.id,
-                nome: nomeEditado.trim(),
-                descricaoCategoria: descricaoCategoria.trim(),
-                url: `${urlCategorias}/${editandoCategoria.id}`
-            }) // Debug temporario
-
             const requestBody = {
                 nome: nomeEditado.trim(),
                 descricaoCategoria: descricaoCategoria.trim()
             }
-            console.log('Request body:', requestBody) // Debug temporario
+
 
             const res = await fetch(`${urlCategorias}/${editandoCategoria.id}`, {
                 method: 'PATCH',
@@ -150,18 +139,15 @@ const GerenciarCategorias = () => {
                 body: JSON.stringify(requestBody)
             })
 
-            console.log('Response status PATCH:', res.status) // Debug temporario
-            console.log('Response headers:', [...res.headers.entries()]) // Debug temporario
-
             // Tenta ler a resposta como texto primeiro para ver o que está sendo retornado
             const responseText = await res.text()
-            console.log('Response text:', responseText) // Debug temporario
+
 
             if (res.ok) {
                 let responseData
                 try {
                     responseData = JSON.parse(responseText)
-                    console.log('Parsed response data:', responseData) // Debug temporario
+
                 } catch (parseError) {
                     console.warn('Response não é JSON válido:', parseError)
                     responseData = { message: 'Categoria atualizada' }
@@ -301,7 +287,7 @@ const GerenciarCategorias = () => {
                                                     alt="Editar categoria"
                                                     onClick={() => abrirModalEdicao(categ)}
                                                     title="Editar categoria"
-                                                />
+                                                /> 
                                                 <img
                                                     className={styles.deleteCategoria}
                                                     src={lixoIcon}
