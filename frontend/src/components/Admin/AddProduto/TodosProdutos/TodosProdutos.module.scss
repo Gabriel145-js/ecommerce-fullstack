@@ -104,6 +104,10 @@
     display: flex;
     gap: 10px;
 
+    a{
+        text-decoration: none;
+    }
+
     .btnEditar {
         padding: 5px 15px;
         background-color: #E2D9CF;
