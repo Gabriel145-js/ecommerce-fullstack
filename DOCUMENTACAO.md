@@ -52,13 +52,13 @@ O arquivo [database](/database_schema.sql) contém os comandos SQL para criaçã
 - Adição de produtos no dashboard admin
 - Exibição inicial de produtos no Home
 - Tabelas `produtos` e `categorias` criadas
+- Carrinho de Compras
+- CRUD de categorias e produtos
 - Schema SQL documentado no arquivo [database](./database_schema.sql)
 
 ### 🚧 Em desenvolvimento
 - Exibição completa dos produtos vindos do DB
-- CRUD de categorias e produtos
 - Sistema de usuários
-- Carrinho de compras
 - Processamento de pedidos
 - Painel administrativo completo
 - Filtros e pesquisa de produtos
@@ -82,8 +82,9 @@ npm run preview  # Preview do build
 ## 🌐 URLs do projeto
 
 - **Frontend**: http://localhost:5173
-- **Backend**: http://localhost:5000
+- **Backend**: http://localhost:5000 
 - **Banco**: Neon Cloud (PostgreSQL)
+- **Imagens**: Cloudinary
 
 ## 📖 Arquivos importantes
 
@@ -105,77 +106,182 @@ npm run preview  # Preview do build
 
 ## 📁 Estrutura do projeto
 
+Este projeto é dividido em duas partes principais: **backend** (servidor) e **frontend** (cliente). Abaixo está a descrição detalhada de cada diretório e arquivo relevante. E um esqueleto da estrutura de pastas.
+
+---
+
+## 📁 Raiz do Projeto
+
+- **`backend/`**: Código do servidor (Node.js + Express).
+- **`frontend/`**: Código da aplicação cliente (React + Vite).
+- **`database_schema.sql`**: Script SQL com a estrutura inicial do banco de dados.
+- **`DOCUMENTACAO.md`**: Documentação completa do projeto.
+- **`netlify.toml`**: Configuração para deploy do frontend no Netlify.
+- **`package.json`**: Dependências e scripts para rodar o projeto (backend e frontend simultaneamente).
+
+---
+
+## 🔙 Backend (`backend/`)
+
+### Arquivos principais:
+
+- **`index.js`**: Ponto de entrada do servidor Express.
+- **`db/db.js`**: Configuração da conexão com o banco de dados (PostgreSQL, MySQL, etc.).
+
+### 📦 Rotas da API (`routes/`):
+
+- **`categorias.js`**: CRUD de categorias de produtos.
+- **`produtos.js`**: Gerenciamento de produtos.
+- **`imagens.js`**: Upload e gerenciamento de imagens dos produtos.
+
+---
+
+## 🌐 Frontend (`frontend/`)
+
+### Arquivos principais:
+
+- **`vite.config.js`**: Configuração do bundler Vite.
+- **`index.html`**: Template HTML principal.
+
+### 📁 Diretório `src/`:
+
+- **`main.jsx`**: Ponto de entrada da aplicação React.
+- **`App.jsx`**: Componente raiz que gerencia rotas e estrutura geral.
+
+### 🧩 Subdiretórios:
+
+- **`pages/`**: Páginas completas da aplicação (Ex: Home, Admin, Detalhes do Produto).
+- **`components/`**: Componentes reutilizáveis de UI (Ex: Botões, Formulários, Navegação, Rodapé).
+- **`assets/`**: Ícones, imagens e arquivos estáticos.
+- **`hooks/`**: Hooks customizados do React (Ex: `useBreadcrumbs`).
+- **`styles/`**: Estilização global (SCSS), incluindo variáveis, mixins e animações.
+
 ```
-ecommerce-fullstack/
-├── 📁backend
-│   ├── 📁db
-│   │   └── db.js
-│   ├── 📁routes
-│   │   ├── categorias.js
-│   │   ├── imagens.js
-│   │   └── produtos.js
-│   ├── 📁scripts
-│   ├── .env
-│   ├── .env.example
-│   ├── .gitignore
-│   ├── index.js
-│   ├── package-lock.json
-│   └── package.json
-├── 📁frontend
-│   ├── 📁public
-│   ├── 📁src
-│   │   ├── 📁assets
-│   │   │   └── 📁icons
-│   │   │       ├── addProdutoIcon.svg
-│   │   │       ├── adminIcon.svg
-│   │   │       ├── fecharIcon.svg
-│   │   │       ├── lupaIcon.svg
-│   │   │       ├── menuHamburguerIcon.svg
-│   │   │       └── uploadIcon.svg
-│   │   ├── 📁components
-│   │   │   ├── 📁Admin
-│   │   │   │   └── 📁AddProduto
-│   │   │   │       ├── 📁Categorias
-│   │   │   │       │   └── SelecionaCategoria.jsx
-│   │   │   │       ├── 📁ImagensProdutos
-│   │   │   │       │   ├── ImagensProdutos.module.scss
-│   │   │   │       │   └── ImagensProodutos.jsx
-│   │   │   │       ├── AddProduto.jsx
-│   │   │   │       └── AddProduto.module.scss
-│   │   │   ├── 📁Navigation
-│   │   │   │   ├── Navigation.jsx
-│   │   │   │   └── Navigation.module.scss
-│   │   │   └── 📁Produtos
-│   │   │       ├── ProdutosList.jsx
-│   │   │       └── ProdutosList.module.scss
-│   │   ├── 📁pages
-│   │   │   ├── 📁Admin
-│   │   │   │   ├── DashboardAdmin.jsx
-│   │   │   │   └── DashboardAdmin.module.scss
-│   │   │   └── 📁index
-│   │   │       ├── IndexPage.jsx
-│   │   │       └── IndexPage.module.scss
-│   │   ├── 📁styles
-│   │   │   ├── animation.scss
-│   │   │   └── variables.scss
-│   │   ├── App.jsx
-│   │   ├── index.scss
-│   │   └── main.jsx
-│   ├── .env.example
-│   ├── .env.local
-│   ├── .env.production
-│   ├── .gitignore
-│   ├── eslint.config.js
-│   ├── index.html
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── README.md
-│   └── vite.config.js
-├── database_schema.sql
-├── DOCUMENTACAO.md
-├── netlify.toml
-├── package.json
-├── README.md   
+ecommerce-fullstack
+├─ .qodo
+├─ backend
+│  ├─ .env
+│  ├─ .env.example
+│  ├─ db
+│  │  └─ db.js
+│  ├─ index.js
+│  ├─ package-lock.json
+│  ├─ package.json
+│  ├─ routes
+│  │  ├─ categorias.js
+│  │  ├─ imagens.js
+│  │  └─ produtos.js
+│  └─ scripts
+├─ database_schema.sql
+├─ DOCUMENTACAO.md
+├─ frontend
+│  ├─ .env.example
+│  ├─ .env.local
+│  ├─ .env.production
+│  ├─ eslint.config.js
+│  ├─ index.html
+│  ├─ package-lock.json
+│  ├─ package.json
+│  ├─ public
+│  │  └─ imgs
+│  │     └─ heroWoman.png
+│  ├─ README.md
+│  ├─ src
+│  │  ├─ App.jsx
+│  │  ├─ assets
+│  │  │  └─ icons
+│  │  │     ├─ addProdutoIcon.svg
+│  │  │     ├─ adminIcon.svg
+│  │  │     ├─ analyticsIcon.svg
+│  │  │     ├─ boxIcon.svg
+│  │  │     ├─ carCompras.svg
+│  │  │     ├─ editIcon.svg
+│  │  │     ├─ estoqueIcon.svg
+│  │  │     ├─ fecharIcon.svg
+│  │  │     ├─ folderIcon.svg
+│  │  │     ├─ gerenciarIcon.svg
+│  │  │     ├─ listProdutosIcon.svg
+│  │  │     ├─ lixoIcon.svg
+│  │  │     ├─ lupaIcon.svg
+│  │  │     ├─ menuHamburguerIcon.svg
+│  │  │     ├─ sacolaIcon.svg
+│  │  │     ├─ saleIcon.svg
+│  │  │     ├─ uploadIcon.svg
+│  │  │     └─ userIcon.svg
+│  │  ├─ components
+│  │  │  ├─ Admin
+│  │  │  │  └─ AddProduto
+│  │  │  │     ├─ AddProduto.jsx
+│  │  │  │     ├─ AddProduto.module.scss
+│  │  │  │     ├─ Categorias
+│  │  │  │     │  ├─ GerenciarCategorias
+│  │  │  │     │  │  ├─ GerenciarCategorias.jsx
+│  │  │  │     │  │  └─ GerenciarCategorias.module.scss
+│  │  │  │     │  └─ SelecionaCategoria.jsx
+│  │  │  │     ├─ ImagensProdutos
+│  │  │  │     │  ├─ ImagensProdutos.module.scss
+│  │  │  │     │  └─ ImagensProodutos.jsx
+│  │  │  │     └─ TodosProdutos
+│  │  │  │        ├─ Acoes.jsx
+│  │  │  │        ├─ TodosProdutos.jsx
+│  │  │  │        └─ TodosProdutos.module.scss
+│  │  │  ├─ CarrinhoCompras
+│  │  │  │  ├─ CarrinhoCompras.jsx
+│  │  │  │  ├─ CarrinhoCompras.module.scss
+│  │  │  │  ├─ ItemCarrinho.jsx
+│  │  │  │  └─ ItemCarrinho.module.scss
+│  │  │  ├─ Footer
+│  │  │  │  ├─ Footer.jsx
+│  │  │  │  └─ Footer.module.scss
+│  │  │  ├─ Navigation
+│  │  │  │  ├─ BreadCrumb
+│  │  │  │  │  ├─ Breadcrumb.jsx
+│  │  │  │  │  └─ Breadcrumb.module.scss
+│  │  │  │  ├─ Navigation.jsx
+│  │  │  │  └─ Navigation.module.scss
+│  │  │  ├─ OrdemConclusaoPedido
+│  │  │  │  ├─ EndereçoPedido
+│  │  │  │  └─ InfosPessoais
+│  │  │  │     ├─ InfosPessoais.jsx
+│  │  │  │     └─ InfosPessoais.module.scss
+│  │  │  └─ Produtos
+│  │  │     ├─ DetalhesProdutos
+│  │  │     │  ├─ DetalhesProdutos.jsx
+│  │  │     │  └─ DetalhesProdutos.module.scss
+│  │  │     ├─ ProdutosList.jsx
+│  │  │     ├─ ProdutosList.module.scss
+│  │  │     └─ SugestaoProdutos
+│  │  │        ├─ SugestaoProdutos.jsx
+│  │  │        └─ SugestaoProdutos.module.scss
+│  │  ├─ hooks
+│  │  │  └─ useBreadcrumbs.js
+│  │  ├─ index.scss
+│  │  ├─ main.jsx
+│  │  ├─ pages
+│  │  │  ├─ Admin
+│  │  │  │  ├─ DashboardAdmin.jsx
+│  │  │  │  ├─ DashboardAdmin.module.scss
+│  │  │  │  └─ HomeAdmin
+│  │  │  │     ├─ HomeAdmin.jsx
+│  │  │  │     └─ HomeAdmin.module.scss
+│  │  │  ├─ index
+│  │  │  │  ├─ IndexPage.jsx
+│  │  │  │  └─ IndexPage.module.scss
+│  │  │  ├─ OrdemConclusaoPedido
+│  │  │  │  ├─ ConclusaoPedido.jsx
+│  │  │  │  └─ ConclusaoPedido.module.scss
+│  │  │  └─ Produtos_PorCategoria
+│  │  │     └─ TodosProdutos
+│  │  └─ styles
+│  │     ├─ animation.scss
+│  │     ├─ variables.scss
+│  │     └─ _mixin.scss
+│  └─ vite.config.js
+├─ netlify.toml
+├─ package.json
+└─ README.md
+
+
 ```
 ---
 

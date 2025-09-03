@@ -30,14 +30,14 @@ O projeto busca entregar **funcionalidade, qualidade de código e organização 
 Criei este projeto para:
 - Ter um **case prático e completo** no portfólio
 - Consolidar habilidades com **React, Node.js, Express e PostgreSQL**
-- Explorar boas práticas de deploy em ambientes reais (**Render, Vercel, Neon**)
+- Explorar boas práticas de deploy em ambientes reais (**Render, Netlify, Neon**)
 - Exibir um projeto **online e navegável** para recrutadores
 
 ---
 
 ## 🧱 Tecnologias
 
-### 🔹 Front-end — React + Vite (Vercel/Netlify)
+### 🔹 Front-end — React + Vite (Netlify)
 - Interface responsiva e moderna  
 - Roteamento com React Router  
 - Consumo de API via Axios/Fetch  
@@ -45,9 +45,9 @@ Criei este projeto para:
 
 ### 🔹 Back-end — Node.js + Express (Render)
 - API RESTful  
-- Middleware para autenticação, validação e CORS  
-- Deploy automático pelo GitHub (Render)  
-- Integração com PostgreSQL usando `pg` ou Prisma
+- Validações de dados e CORS  
+- Deploy automático pelo GitHub   
+- Integração com PostgreSQL usando `pg`
 
 ### 🔹 Banco de Dados — PostgreSQL (Neon)
 - Modelo relacional com integridade e performance  
@@ -59,18 +59,28 @@ Criei este projeto para:
 ## 📌 Status Atual
 
 ### ✅ Implementado
-- Estrutura do projeto (frontend + backend)
-- Conexão backend → PostgreSQL (Neon)
+- Servidor Express configurado (porta 5000 + URL pública)
+- Middleware CORS habilitado
+- Parser JSON configurado
+- Conexão com PostgreSQL (Neon) funcionando
+- Estrutura base de rotas no backend
+- App React 19 inicializado com Vite
+- Sass/SCSS configurado
+- Hot reload ativo
+- Build otimizado configurado
+- Adição de produtos no dashboard admin
+- Exibição inicial de produtos no Home
 - Tabelas `produtos` e `categorias` criadas
-- Deploy básico do backend e frontend
+- Carrinho de Compras
+- CRUD de categorias e produtos
+- Schema SQL documentado no arquivo [database](./database_schema.sql)
 
 ### 🚧 Em desenvolvimento
-- Listagem de produtos vindos do banco
-- CRUD de produtos e categorias
-- Sistema de autenticação
-- Carrinho de compras com persistência
-- Checkout e finalização de pedidos
-- Painel administrativo
+- Exibição completa dos produtos vindos do DB
+- Sistema de usuários
+- Processamento de pedidos
+- Painel administrativo completo
+- Filtros e pesquisa de produtos
 
 ---
 
@@ -102,4 +112,4 @@ npm run dev
 Este projeto é pensado para demonstrar minha capacidade de: - Criar uma aplicação funcional e modular do zero - Trabalhar com integrações entre front-end, back-end e banco de dados - Publicar e manter o projeto online para acesso contínuo Se quiser ver os bastidores, fico à disposição para explicar a arquitetura, código ou lógica do sistema. 😉 
  ---
 ## 🔗 Acompanhe 
-Estou compartilhando o progresso do projeto no meu LinkedIn: [Gabriel Maschio Zaparolli](https://www.linkedin.com/in/gabriel-zaparolli-22a098376/) atualize o readme        
+Estou compartilhando o progresso do projeto no meu LinkedIn: [Gabriel Maschio Zaparolli](https://www.linkedin.com/in/gabriel-zaparolli-22a098376/) 
