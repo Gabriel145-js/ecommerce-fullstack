@@ -3,9 +3,11 @@ import { createPortal } from 'react-dom'
 import styles from './CarrinhoCompras.module.scss'
 import fecharIcon from '../../assets/icons/fecharIcon.svg'
 import ItemCarrinho from './ItemCarrinho'
+import { useNavigate } from 'react-router-dom';
 
 const CarrinhoCompras = ({ onClose }) => {
     const [itens, setItens] = useState([]);
+    const navigate = useNavigate(); 
 
     // Carrega os itens do localStorage quando o modal é aberto
     useEffect(() => {
@@ -64,6 +66,12 @@ const CarrinhoCompras = ({ onClose }) => {
         };
     }, []);
 
+    // Handler para o botão "Finalizar Compra"
+    const handleFinalizarCompra = () => {
+        onClose(); 
+        navigate('/ConcluirPedido'); // Navega para a página de conclusão
+     
+    };
     const conteudoModal = (
         <div className={styles.sobreposicaoModal} onClick={onClose}>
             <div className={styles.conteudoModal} onClick={(e) => e.stopPropagation()}>
@@ -95,7 +103,7 @@ const CarrinhoCompras = ({ onClose }) => {
                             <span>Total</span>
                             <span>{calcularTotal()}</span>
                         </div>
-                        <button className={styles.botaoFinalizar}>
+                        <button onClick={handleFinalizarCompra} className={styles.botaoFinalizar}>
                             Finalizar Compra
                         </button>
                     </div>
