@@ -1,0 +1,74 @@
+@use '../../../styles/variables.scss' as vars;
+
+.containerInfosPessoais {
+    display: flex;
+    justify-content: center;
+
+    .cardInfosPessoais {
+        width: 50%;
+        height: 50vh;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 12px;
+        text-align: left;
+        padding: 10px;
+
+        .tituloInfosPessoais {
+            display: flex;
+            justify-content: flex-start;
+
+
+
+            h1 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: vars.$colorPreto;
+                font-family: vars.$fontFamilyInter;
+                font-size: 25px;
+                font-weight: 600;
+
+
+                img {
+                    width: 30px;
+                }
+            }
+        }
+
+        .inputInfosPessoais {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .labelInputsInfos {
+                display: flex;
+                justify-content: flex-start;
+                flex-direction: column;
+
+                input {
+                    border: 1px solid #9a9a9a9a;
+                    padding: 10px;
+                    border-radius: 10px;
+                }
+            }
+
+            .nomeSobrenome {
+                display: flex;
+                gap: 10px;
+
+
+                input {
+                    flex: 1;
+                    border: 1px solid #9a9a9a9a;
+                    padding: 10px;
+                    border-radius: 10px;
+                    
+
+                }
+            }
+
+
+        }
+
+
+    }
+}
