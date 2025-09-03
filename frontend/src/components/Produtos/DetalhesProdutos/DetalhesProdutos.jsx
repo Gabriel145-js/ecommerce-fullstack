@@ -84,6 +84,7 @@ const DetalhesProdutos = () => {
                 preco: parseFloat(produto.preco),
                 imagem: imagemSelecionada,
                 quantidade: quantidade,
+                
 
             };
             novoCarrinho = [...carrinhoAtual, novoItem];
@@ -163,14 +164,18 @@ const DetalhesProdutos = () => {
                             <div className={styles.opcoes}>
                                 {Array.isArray(produto.cor) ? (
                                     produto.cor.map((cor, index) => (
-                                        <button
-                                            key={index}
-                                            type="button"
-                                            className={styles.tamanho}
-                                        // Adicione lógica para selecionar cor, se quiser
-                                        >
-                                            {cor}
-                                        </button>
+                                        <div key={index}>
+                                            <input
+                                                type="checkbox"
+                                                id={`cor-${cor}`}
+                                                className={styles.checkbox}
+
+                                            />
+                                            <label htmlFor={`cor-${cor}`} className={styles.tamanho}>
+                                                {cor}
+                                            </label>
+                                        </div>
+
                                     ))
                                 ) : (
                                     <button type="button" className={styles.tamanho}>
