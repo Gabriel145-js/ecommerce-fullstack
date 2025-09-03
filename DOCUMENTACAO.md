@@ -158,7 +158,6 @@ Este projeto é dividido em duas partes principais: **backend** (servidor) e **f
 
 ```
 ecommerce-fullstack
-├─ .qodo
 ├─ backend
 │  ├─ .env
 │  ├─ .env.example
