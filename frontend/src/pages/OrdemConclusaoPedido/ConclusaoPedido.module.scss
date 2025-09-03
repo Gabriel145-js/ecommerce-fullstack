@@ -1,0 +1,107 @@
+@use '../../styles/variables.scss' as vars;
+@use '../../styles/mixin';
+
+.containerCncluirPedido {
+
+    .tituloSubtitulo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        line-height: 50px;
+        text-align: center;
+
+        h1 {
+            color: vars.$colorPreto;
+            font-family: vars.$fontFamilyInter;
+            font-size: 40px;
+        }
+
+        p {
+            color: vars.$colorDescricaoPreto;
+            font-family: vars.$fontFamilyInter;
+            font-size: 18px;
+
+        }
+    }
+
+    /* Adicione este código em ConclusaoPedido.module.scss */
+
+    .linhaDoTempo {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2.5rem;
+        position: relative;
+        counter-reset: passo;
+
+        // Linha de fundo que conecta os passos
+        &::before {
+            content: '';
+            position: absolute;
+            top: 15px; // Ajuste para centralizar com o .numeroPasso
+            left: 5%;
+            right: 5%;
+            height: 2px;
+            background-color: #e0e0e0;
+            z-index: 1;
+        }
+    }
+
+    .passo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #a0a0a0; // Cor para passos pendentes
+        flex: 1;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+    }
+
+    .numeroPasso {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #fff;
+        color: #a0a0a0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        border: 2px solid #e0e0e0;
+        transition: all 0.3s ease;
+    }
+
+    .nomePasso {
+        font-size: 0.9rem;
+        max-width: 100px;
+    }
+
+    .passoCompleto {
+        color: #333; // Cor para texto de passos completos
+
+        .numeroPasso {
+            background-color: #4caf50; // Verde
+            border-color: #4caf50;
+            color: #fff;
+        }
+    }
+
+    .passoAtivo {
+        color: #333; // Cor para texto do passo ativo
+        font-weight: bold;
+
+        .numeroPasso {
+            background-color: #2196f3; // Azul
+            border-color: #2196f3;
+            color: #fff;
+            transform: scale(1.15);
+        }
+    }
+
+
+
+}
