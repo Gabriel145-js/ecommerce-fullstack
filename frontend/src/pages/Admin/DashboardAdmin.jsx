@@ -4,6 +4,8 @@ import styles from './DashboardAdmin.module.scss'
 import menuHamburguer from '../../assets/icons/menuHamburguerIcon.svg'
 import fecharIcon from '../../assets/icons/fecharIcon.svg'
 import addProdutoIcon from '../../assets/icons/addProdutoIcon.svg'
+import gerenciarIcon from '../../assets/icons/gerenciarIcon.svg' 
+import listProdutosIcon from '../../assets/icons/listProdutosIcon.svg' 
 
 const DashboardAdmin = () => {
 
@@ -30,16 +32,17 @@ const DashboardAdmin = () => {
         </span>
 
         <div className={styles.containerLinks}>
+          
           <NavLink to='AddProduto' className={styles.linkMenu}>
             <img src={addProdutoIcon} alt="" />Adicionar Produto
           </NavLink>
-          
+
           <NavLink to='GerenciarCategorias' className={styles.linkMenu}>
-           <img src={addProdutoIcon} alt="" /> Gerenciar Categorias
+            <img src={gerenciarIcon} alt="" /> Gerenciar Categorias
           </NavLink>
 
           <NavLink to='TodosProdutos' className={styles.linkMenu}>
-           <img src={addProdutoIcon} alt="" /> Gerenciar Produtos
+            <img src={listProdutosIcon} alt="" /> Todos os Produtos
           </NavLink>
         </div>
 
