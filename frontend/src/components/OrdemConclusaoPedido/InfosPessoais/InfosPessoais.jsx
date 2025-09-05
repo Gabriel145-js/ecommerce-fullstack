@@ -1,41 +1,50 @@
 import React from 'react'
-import styles from './InfosPessoais.module.scss'
 import userIcon from '../../../assets/icons/userIcon.svg'
+import { useState } from 'react'
+import DefaultFormPedido from '../DefaultFormPedido'
 
 const InfosPessoais = () => {
+
+    const [nomeCliente, setNomeCliente] = useState('')
+    const [sobrenomeCliente, setSobrenomeCliente] = useState('')
+    const [emailCliente, setEmailCliente] = useState('')
+    const [telefoneCliente, setTelefoneCliente] = useState('')
+
+    const campos = [
+        {
+            label: 'Seu nome',
+            placeholder: 'Nome',
+            value: nomeCliente,
+            onChange: setNomeCliente,
+        },
+        {
+            label: 'Sobrenome',
+            placeholder: 'Seu sobrenome',
+            value: sobrenomeCliente,
+            onChange: setSobrenomeCliente,
+        },
+        {
+            label: 'Email',
+            placeholder: 'seu@email.com',
+            value: emailCliente,
+            onChange: setEmailCliente,
+        },
+        {
+            label: 'Telefone',
+            placeholder: '(11) 99999-9999',
+            value: telefoneCliente,
+            onChange: setTelefoneCliente,
+        },
+    ]
+
     return (
-        <section className={styles.containerInfosPessoais}>
-            <div className={styles.cardInfosPessoais}>
-                <header className={styles.tituloInfosPessoais}>
-                    <h1> <img src={userIcon} alt="" /> Informações Pessoais</h1>
-                </header>
-
-                <div className={styles.inputInfosPessoais}>
-                    <div className={styles.nomeSobrenome}>
-                        <label className={styles.labelInputsInfos}>
-                            Nome
-                            <input type="text" placeholder="Nome" />
-                        </label>
-                        <label className={styles.labelInputsInfos}>
-                            Sobrenome
-                            <input type="text" placeholder="Sobrenome" />
-                        </label>
-                    </div>
-                    <label className={styles.labelInputsInfos}>
-                        Email
-                        <input type="text" placeholder="Email" />
-                    </label>
-                    <label className={styles.labelInputsInfos}>
-                        Telefone
-                        <input type="text" placeholder="(11) 99999-9999" />
-                    </label>
-                </div>
-
-
-            </div>
-
-        </section>
+        <DefaultFormPedido
+            titulo="Informações Pessoais"
+            icone={userIcon}
+            campos={campos}
+        />
     )
+
 }
 
 export default InfosPessoais
