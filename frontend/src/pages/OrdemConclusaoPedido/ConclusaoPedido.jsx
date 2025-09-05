@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styles from './ConclusaoPedido.module.scss'
 import InfosPessoais from '../../components/OrdemConclusaoPedido/InfosPessoais/InfosPessoais'
+import EndereçoPedido from '../../components/OrdemConclusaoPedido/EndereçoPedido/EndereçoPedido'
 
 const nomePassos = ['Informações Pessoais', 'Endereço de Entrega', 'Pagamento']
 
@@ -41,12 +42,10 @@ const ConclusaoPedido = () => {
       </div>
 
       <div className={styles.conteudoPasso}>
-      
-        <h2>{nomePassos[passoAtual]}</h2>
 
         {/* Exibe os componentes de acordo com o passo atual */}
         {passoAtual === 0 && <InfosPessoais />}
-        {passoAtual === 1 && <div>Componente de Endereço de Entrega aqui.</div>}
+        {passoAtual === 1 && <EndereçoPedido/>}
         {passoAtual === 2 && <div>Componente de Pagamento aqui.</div>}
       </div>
 
