@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { CartContext } from '../../../context/CartContext';
 import { useParams } from 'react-router-dom';
 import styles from './DetalhesProdutos.module.scss';
 import SugestaoProdutos from '../SugestaoProdutos/SugestaoProdutos';
@@ -13,6 +14,8 @@ const DetalhesProdutos = () => {
     const [quantidade, setQuantidade] = useState(1);
     const [fadeOut, setFadeOut] = useState(false);
     const [sucessoPedido, setSucessoPedido] = useState(false);
+
+    const { addAoCarrinho } = useContext(CartContext);
 
     const API_URL = import.meta.env.VITE_API_URL;
     const urlProduto = `${API_URL}/api/produtos/${id}/`;
@@ -61,39 +64,17 @@ const DetalhesProdutos = () => {
     if (produto.tamanho_g) tamanhos.push('G');
 
     const adicionarAoCarrinho = () => {
-        //Pega o carrinho existente do localStorage ou cria um array vazio
-        const carrinhoAtual = JSON.parse(localStorage.getItem('carrinho')) || [];
-
-        //Verificação se item ja existe
-        const itemExistente = carrinhoAtual.find(item => item.id === produto.id);
-
-        let novoCarrinho;
-
-        if (itemExistente) {
-            // Se existe, atualiza a quantidade
-            novoCarrinho = carrinhoAtual.map(item =>
-                item.id === produto.id
-                    ? { ...item, quantidade: item.quantidade + quantidade }
-                    : item
-            );
-        } else {
-            // Se não existe, adiciona o novo item
-            const novoItem = {
+        if (!produto) return;
+        // Adiciona a quantidade correta ao carrinho via contexto
+        for (let i = 0; i < quantidade; i++) {
+            addAoCarrinho({
                 id: produto.id,
                 nome: produto.nome,
                 preco: parseFloat(produto.preco),
-                imagem: imagemSelecionada,
-                quantidade: quantidade,
-                
-
-            };
-            novoCarrinho = [...carrinhoAtual, novoItem];
+                imagem: imagemSelecionada
+            });
         }
-
-        //Salva o carrinho atualizado no localStorage
-        localStorage.setItem('carrinho', JSON.stringify(novoCarrinho));
-
-        setQuantidade(1)
+        setQuantidade(1);
         setSucessoPedido(true);
     };
 

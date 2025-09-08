@@ -1,50 +1,29 @@
-import React, { useState, useEffect } from 'react'
-import { createPortal } from 'react-dom'
-import styles from './CarrinhoCompras.module.scss'
-import fecharIcon from '../../assets/icons/fecharIcon.svg'
-import ItemCarrinho from './ItemCarrinho'
+
+import React, { useContext, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import styles from './CarrinhoCompras.module.scss';
+import fecharIcon from '../../assets/icons/fecharIcon.svg';
+import ItemCarrinho from './ItemCarrinho';
 import { useNavigate } from 'react-router-dom';
+import { CartContext } from '../../context/CartContext';
 
 const CarrinhoCompras = ({ onClose }) => {
-    const [itens, setItens] = useState([]);
-    const navigate = useNavigate(); 
+    const { carrinhoItens, removerDoCarrinho, addAoCarrinho, limparCarrinho, totalPedido } = useContext(CartContext);
+    const navigate = useNavigate();
 
-    // Carrega os itens do localStorage quando o modal é aberto
-    useEffect(() => {
-        const itensSalvos = JSON.parse(localStorage.getItem('carrinho')) || [];
-        setItens(itensSalvos);
-    }, []);
-
-        //Atualiza localStorage sempre que item mudar
-    const atualizarLocalStorage = (novosItens) => {
-        localStorage.setItem('carrinho', JSON.stringify(novosItens));
-    };
-
-    //Remover o item pelo id
-    const removerItem = (idDoItem) => {
-        const novosItens = itens.filter(item => item.id !== idDoItem);
-        setItens(novosItens);
-        atualizarLocalStorage(novosItens);
-    };
-
-    //Atualiza quantidade
+    // Atualiza quantidade de um item
     const atualizarQuantidade = (idDoItem, novaQuantidade) => {
-        // Se a quantidade for menor que 1, remove o item
+        const item = carrinhoItens.find(item => item.id === idDoItem);
+        if (!item) return;
         if (novaQuantidade < 1) {
-            removerItem(idDoItem);
-            return;
+            removerDoCarrinho(idDoItem);
+        } else {
+            // Remove e adiciona novamente com a nova quantidade
+            removerDoCarrinho(idDoItem);
+            for (let i = 0; i < novaQuantidade; i++) {
+                addAoCarrinho(item);
+            }
         }
-        const novosItens = itens.map(item =>
-            item.id === idDoItem ? { ...item, quantidade: novaQuantidade } : item
-        );
-        setItens(novosItens);
-        atualizarLocalStorage(novosItens);
-    };
-
-    //Calcula preço total em BRL
-    const calcularTotal = () => {
-        const total = itens.reduce((total, item) => total + item.preco * item.quantidade, 0);
-        return total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     };
 
     // Fechar com a tecla Esc
@@ -68,10 +47,10 @@ const CarrinhoCompras = ({ onClose }) => {
 
     // Handler para o botão "Finalizar Compra"
     const handleFinalizarCompra = () => {
-        onClose(); 
-        navigate('/ConcluirPedido'); // Navega para a página de conclusão
-     
+        onClose();
+        navigate('/ConcluirPedido');
     };
+
     const conteudoModal = (
         <div className={styles.sobreposicaoModal} onClick={onClose}>
             <div className={styles.conteudoModal} onClick={(e) => e.stopPropagation()}>
@@ -82,26 +61,26 @@ const CarrinhoCompras = ({ onClose }) => {
                     </button>
                 </div>
                 <div className={styles.corpoModal}>
-                    {itens.length === 0 ? (
+                    {carrinhoItens.length === 0 ? (
                         <p className={styles.carrinhoVazio}>Seu carrinho está vazio.</p>
                     ) : (
                         <div className={styles.listaItens}>
-                            {itens.map(item => (
+                            {carrinhoItens.map(item => (
                                 <ItemCarrinho
                                     key={item.id}
                                     item={item}
-                                    onRemover={removerItem}
+                                    onRemover={removerDoCarrinho}
                                     onAtualizarQuantidade={atualizarQuantidade}
                                 />
                             ))}
                         </div>
                     )}
                 </div>
-                {itens.length > 0 && (
+                {carrinhoItens.length > 0 && (
                     <div className={styles.rodapeModal}>
                         <div className={styles.total}>
                             <span>Total</span>
-                            <span>{calcularTotal()}</span>
+                            <span>{totalPedido.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
                         </div>
                         <button onClick={handleFinalizarCompra} className={styles.botaoFinalizar}>
                             Finalizar Compra
@@ -113,6 +92,6 @@ const CarrinhoCompras = ({ onClose }) => {
     );
 
     return createPortal(conteudoModal, document.body);
-}
+};
 
-export default CarrinhoCompras
+export default CarrinhoCompras;
