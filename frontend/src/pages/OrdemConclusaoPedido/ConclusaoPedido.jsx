@@ -22,6 +22,8 @@ const ConclusaoPedido = () => {
   const [telefoneCliente, setTelefoneCliente] = useState('');
   const [cep, setCep] = useState('');
   const [rua, setRua] = useState('');
+  const [bairro, setBairro] = useState('');
+  const [complemento, setComplemento] = useState('');
   const [numResidencia, setNumResidencia] = useState('');
   const [cidade, setCidade] = useState('');
   const [estado, setEstado] = useState('');
@@ -60,10 +62,10 @@ const ConclusaoPedido = () => {
         cep: cep,
         estado: estado,
         cidade: cidade,
-        bairro: '', // Adicione bairro se tiver
+        bairro: bairro ,
         rua: rua,
         numero: numResidencia,
-        complemento: '' // Adicione complemento se tiver
+        complemento: complemento
       },
       itens: itensFormatados,
       valor_total: totalPedido
@@ -160,6 +162,10 @@ const ConclusaoPedido = () => {
             setNumResidencia={setNumResidencia}
             cidade={cidade}
             setCidade={setCidade}
+            bairro= {bairro}
+            setBairro={setBairro}
+            complemento={complemento}
+            setComplemento={setComplemento}
             estado={estado}
             setEstado={setEstado}
           />

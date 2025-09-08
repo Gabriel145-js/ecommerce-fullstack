@@ -26,6 +26,8 @@ const DefaultFormPedido = ({ titulo, icone, campos }) => {
                         </label>
                     ))}
                 </div>
+
+                
             </div>
         </section>
 
