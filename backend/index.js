@@ -21,11 +21,13 @@ cloudinary.config({
 const categoriasRoutes = require('./routes/categorias')
 const produtosRoutes = require('./routes/produtos')
 const imagensProdutos = require('./routes/imagens')
+const pedidoProdutos = require('./routes/pedido')
 
 // Usar as rotas de categorias
 app.use('/api/categorias', categoriasRoutes)
 app.use('/api/produtos', produtosRoutes)
 app.use('/api/imagens', imagensProdutos)
+app.use('/api/pedido', pedidoProdutos)
 
 app.use('/api/categorias', produtosRoutes); //Rota especial para linkar a sugestao de produtos nos detalhes do produto, ela esta exibindo os produtos por categoria
 
