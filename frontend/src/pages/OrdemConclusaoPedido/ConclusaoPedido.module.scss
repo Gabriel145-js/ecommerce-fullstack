@@ -1,6 +1,67 @@
 @use '../../styles/variables.scss' as vars;
 @use '../../styles/mixin';
 
+
+.cardEtapa {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 32px 24px 32px 24px;
+    margin: 24px auto 0 auto;
+    max-width: 98%;
+    width: 50%;
+    min-width: 320px;
+    border: 1.5px solid #f1eded;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    position: relative;
+    box-sizing: border-box;
+    margin-bottom: 40px;
+}
+
+.botoesNavegacao {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 32px;
+    width: 100%;
+
+    button {
+        @include mixin.modal-button(vars.$colorRosa, #fff, #e04a5a, #fff);
+        font-size: 1rem;
+        min-width: 120px;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        border-radius: 12px;
+        padding: 14px 28px;
+        transition: background 0.2s, color 0.2s;
+
+        &:disabled {
+            background: #e9e1dd;
+            color: #aaa;
+            cursor: not-allowed;
+        }
+    }
+
+    button:first-child {
+        background: #fff;
+        color: #f75a6a;
+        border: 1.5px solid #f75a6a;
+        box-shadow: none;
+
+        &:hover:not(:disabled) {
+            background: #f8d7dd;
+            color: #f75a6a;
+        }
+    }
+
+    button:last-child {
+        margin-left: auto;
+    }
+}
+
+
 .containerCncluirPedido {
 
     .tituloSubtitulo {
@@ -27,81 +88,28 @@
         }
     }
 
-    /* Adicione este código em ConclusaoPedido.module.scss */
 
-    .linhaDoTempo {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 2.5rem;
-        position: relative;
-        counter-reset: passo;
+}
 
-        // Linha de fundo que conecta os passos
-        &::before {
-            content: '';
-            position: absolute;
-            top: 15px; // Ajuste para centralizar com o .numeroPasso
-            left: 5%;
-            right: 5%;
-            height: 2px;
-            background-color: #e0e0e0;
-            z-index: 1;
-        }
+.animacaoSucessoOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(58, 57, 57, 0.315);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+
+    .animacaoSucesso {
+        width: 200px;
+        height: 200px;
     }
-
-    .passo {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        color: #a0a0a0; // Cor para passos pendentes
-        flex: 1;
-        text-align: center;
-        position: relative;
-        z-index: 2;
-    }
-
-    .numeroPasso {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background-color: #fff;
-        color: #a0a0a0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-        border: 2px solid #e0e0e0;
-        transition: all 0.3s ease;
-    }
-
-    .nomePasso {
-        font-size: 0.9rem;
-        max-width: 100px;
-    }
-
-    .passoCompleto {
-        color: #333; // Cor para texto de passos completos
-
-        .numeroPasso {
-            background-color: #4caf50; // Verde
-            border-color: #4caf50;
-            color: #fff;
-        }
-    }
-
-    .passoAtivo {
-        color: #333; // Cor para texto do passo ativo
-        font-weight: bold;
-
-        .numeroPasso {
-            background-color: #2196f3; // Azul
-            border-color: #2196f3;
-            color: #fff;
-            transform: scale(1.15);
-        }
-    }
-
-
 
 }
