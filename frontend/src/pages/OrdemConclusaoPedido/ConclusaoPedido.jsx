@@ -91,7 +91,11 @@ const ConclusaoPedido = () => {
         const data = response.json()
         limparCarrinho()
 
-        setTimeout(() => setLoading(false), 2000); // espera acabar os 2s para o loading ficar falso, ent ele redireciona para '/'
+        setTimeout(() => {
+          setLoading(false);
+          navigate('/');
+        }, 2000); // espera 2s para o loading sumir e depois redireciona
+        
 
       } catch (error) {
         console.error('Erro ao enviar pedido:', error);
@@ -108,7 +112,7 @@ const ConclusaoPedido = () => {
       {loading && (
         <div className={styles.animacaoSucessoOverlay}>
           <Player
-            src="https://lottie.host/e28b09ea-ce40-47b9-8b7c-afa4ebcfe1e5/W0npmgm2Ad.json"
+            src="https://lottie.host/7ab3d1b4-ae52-4ce0-a002-3db5e7db9c36/4XYPoHAFEE.json"
             className={styles.animacaoSucesso}
             autoplay
             onEvent={(event) => {
