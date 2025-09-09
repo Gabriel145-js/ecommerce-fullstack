@@ -8,10 +8,12 @@ const ConcluirPedido = ({
     telefoneCliente,
     cep,
     rua,
+    bairro,
     numResidencia,
     cidade,
     estado,
-    onConcluir
+    complemento,
+
 }) => {
     return (
         <div style={{ textAlign: 'center', margin: '32px 0' }}>
@@ -19,11 +21,8 @@ const ConcluirPedido = ({
             <p><b>Nome:</b> {nomeCliente} {sobrenomeCliente}</p>
             <p><b>Email:</b> {emailCliente}</p>
             <p><b>Telefone:</b> {telefoneCliente}</p>
-            <p><b>Endereço:</b> {rua}, {numResidencia} - {cidade}/{estado} - CEP: {cep}</p>
-            {/* Adicione mais detalhes do pedido se necessário */}
-            <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginTop: 16 }}>
-                <button onClick={onConcluir}>Concluir Pedido</button>
-            </div>
+            <p><b>Endereço:</b> {bairro},{rua}, {numResidencia} - {cidade}/{estado} - CEP: {cep}</p>
+            <p><b>Complemento:</b> {complemento}</p>
         </div>
     );
 };
