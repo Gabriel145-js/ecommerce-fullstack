@@ -77,10 +77,15 @@ const ProdutosList = () => {
                         </p>
 
                         <div className={styles.containerBtnCarrinho}>
-                            <button className={styles.btnAdicionarCarrinho} onClick={(e) => {
-                                e.stopPropagation();
-                                console.log(`Produto ${prod.id} adicionado ao carrinho.`);
-                            }}>Adicionar ao Carrinho</button>
+                            <button
+                                className={styles.btnAdicionarCarrinho}
+                                onClick={e => {
+                                    e.stopPropagation();
+                                    navigate(`/Detalhes-Produto/${prod.id}/${prod.nome}`);
+                                }}
+                            >
+                                Ver Detalhes
+                            </button>
                         </div>
 
                     </SwiperSlide>
