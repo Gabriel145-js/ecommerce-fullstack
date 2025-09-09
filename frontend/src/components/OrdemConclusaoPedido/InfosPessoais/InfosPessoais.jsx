@@ -10,10 +10,10 @@ const InfosPessoais = ({
     telefoneCliente, setTelefoneCliente
 }) => {
     const campos = [
-        { label: 'Seu nome', value: nomeCliente, onChange: setNomeCliente },
-        { label: 'Sobrenome', value: sobrenomeCliente, onChange: setSobrenomeCliente },
-        { label: 'Email', value: emailCliente, onChange: setEmailCliente },
-        { label: 'Telefone', value: telefoneCliente, onChange: setTelefoneCliente },
+        { label: 'Seu nome', placeholder: 'Digite seu nome', value: nomeCliente, onChange: setNomeCliente },
+        { label: 'Sobrenome', placeholder: 'Digite seu sobrenome', value: sobrenomeCliente, onChange: setSobrenomeCliente },
+        { label: 'Email', placeholder: 'Digite seu email', value: emailCliente, onChange: setEmailCliente },
+        { label: 'Telefone', placeholder: '(X) XXXX-XXXX', value: telefoneCliente, onChange: setTelefoneCliente },
     ];
 
     return (
