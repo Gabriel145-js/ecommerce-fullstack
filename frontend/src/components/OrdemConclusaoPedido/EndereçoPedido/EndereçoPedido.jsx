@@ -12,13 +12,13 @@ const EndereçoPedido = ({
     estado, setEstado
 }) => {
     const campos = [
-        { label: 'CEP', value: cep, onChange: setCep },
-        { label: 'Bairro', value: bairro, onChange: setBairro },
-        { label: 'Rua', value: rua, onChange: setRua },
-        { label: 'Número', value: numResidencia, onChange: setNumResidencia },
-        { label: 'Cidade', value: cidade, onChange: setCidade },
-        { label: 'Estado', value: estado, onChange: setEstado },
-        { label: 'Complemento', value: complemento, onChange: setComplemento },
+        { label: 'CEP', placeholder: 'Digite seu CEP', value: cep, onChange: setCep },
+        { label: 'Bairro',placeholder: 'Digite seu bairro', value: bairro, onChange: setBairro },
+        { label: 'Rua', placeholder: 'Digite sua rua', value: rua, onChange: setRua },
+        { label: 'Número', placeholder: 'Digite seu número da residencia', value: numResidencia, onChange: setNumResidencia },
+        { label: 'Cidade', placeholder: 'Digite sua cidade', value: cidade, onChange: setCidade },
+        { label: 'Estado', placeholder: 'Digite seu estado', value: estado, onChange: setEstado },
+        { label: 'Complemento', placeholder: 'Complemento', value: complemento, onChange: setComplemento },
     ];
 
     return (
