@@ -6,6 +6,7 @@ import InfosPessoais from '../../components/OrdemConclusaoPedido/InfosPessoais/I
 import EndereçoPedido from '../../components/OrdemConclusaoPedido/EndereçoPedido/EndereçoPedido';
 import ConcluirPedido from '../../components/OrdemConclusaoPedido/ConcluirPedido/ConcluirPedido';
 import Stepper from '../../components/Stepper/Stepper';
+import checkIcon from '../../assets/icons/checkIcon.svg'
 import { Player } from '@lottiefiles/react-lottie-player';
 
 const nomePassos = ['Informações Pessoais', 'Endereço de Entrega', 'Pagamento'];
@@ -189,8 +190,8 @@ const ConclusaoPedido = () => {
 
         {passoAtual === 2 && (
           <div className={styles.cardEtapa}>
+            <h1 className={styles.tituloEtapa}> <img src={checkIcon} alt="" /> Resumo Final</h1>
             <div className={styles.resumoCarrinho}>
-              <h2>Revisão do Pedido</h2>
               {carrinhoItens.length > 0 ? (
                 <ul>
                   {carrinhoItens.map(item => (

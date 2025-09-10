@@ -18,6 +18,17 @@
     position: relative;
     box-sizing: border-box;
     margin-bottom: 40px;
+
+    .tituloEtapa {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 10px;
+
+        img{
+            width: 30px;
+        }
+    }
 }
 
 .botoesNavegacao {
